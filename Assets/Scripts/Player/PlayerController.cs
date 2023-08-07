@@ -73,8 +73,7 @@ public class PlayerController : MonoBehaviour
     private const int MAX_HORIZONTAL_SPEED = 12;
     private const int HORIZONTAL_ACCELERATION = 100;
 
-
-
+    private float _fallSpeedYDampingChangeThreshold;
     private bool canAirJump => !_grounded && _airJumpsLeft > 0;
     public void ApplyVelocity(Vector2 vel, bool isDecay)
     {
@@ -105,6 +104,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
         Physics2D.queriesStartInColliders = false;
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
     private void Update()
@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         _currentFrame++;
+        HandleCameraLerp();
         HandleCollisions();
         HandleJump();
         HandleDash();
@@ -283,12 +284,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-
         if (_isDashing) return;
-        Debug.Log(_inputStatus.Move);
         if (!(Mathf.Abs(_inputStatus.Move.x) > X_AXIS_DEADZONE))
         {
-
             float deceleration = _grounded ? GROUND_SPEED_DECAY * (_applyFriction ? FRICTION_MULTIPLIER : 1) : AIR_SPEED_DECAY;
             _internalSpeed.x = Mathf.MoveTowards(_internalSpeed.x, 0, deceleration * Time.fixedDeltaTime);
 
@@ -316,8 +314,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!_hasControl) return;
 
+
         _rb.velocity = _internalSpeed + _externalSpeed;
         _externalSpeed = Vector2.MoveTowards(_externalSpeed, Vector2.zero, .2f * Time.fixedDeltaTime); //TODO determine external speed decay    
+    }
+
+    private void HandleCameraLerp()
+    {
+        if(_rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling) {
+            CameraManager.instance.LerpYDamping(true);
+        }
+        if(_rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+            CameraManager.instance.LerpYDamping(false);
+        }
     }
 
 
