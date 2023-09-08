@@ -6,7 +6,7 @@ using UnityEngine.Windows;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    private PlayerInput _input; 
+    private PlayerInput _input;
     private bool _isFacingRight = true;
     // Start is called before the first frame update
     void Start()
@@ -22,10 +22,11 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void TurnCheck()
     {
-        if(_input.inputStatus.Move.x > 0  && !_isFacingRight)
+        if (_input.inputStatus.Move.x > 0 && !_isFacingRight)
         {
             Turn();
-        } else if (_input.inputStatus.Move.x < 0 && _isFacingRight)
+        }
+        else if (_input.inputStatus.Move.x < 0 && _isFacingRight)
         {
             Turn();
         }
@@ -34,7 +35,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Turn()
     {
-        Debug.Log("volteo");
         Vector3 rot = new Vector3(transform.rotation.x, _isFacingRight ? 180f : 0f, transform.rotation.z);
         transform.rotation = Quaternion.Euler(rot);
         _isFacingRight = !_isFacingRight;

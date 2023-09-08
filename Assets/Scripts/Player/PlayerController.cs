@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     // [SerializeField] Vector2 _wallCheckSize;
     private readonly RaycastHit2D[] _groundChecks = new RaycastHit2D[2];
     private readonly RaycastHit2D[] _ceilChecks = new RaycastHit2D[2];
-    private int _frameLeftGrounded = int.MinValue;
+    private int _frameLeftGround = int.MinValue;
     private bool _grounded;
     private Vector2 _skinWidth = new(0.02f, 0.02f);
 
@@ -56,11 +56,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 _dashVelocity;
 
     //constants
-    private const int JUMP_POWER = 36;
+    private const int JUMP_POWER = 28;
 
     private const int JUMP_BUFFER = 5;
     private const int COYOTE_BUFFER = 5;
-    private const int MAX_AIR_JUMPS = 1;
+    private const int MAX_AIR_JUMPS = 0;
     private const float DASH_COOLDOWN = 2f;
     private const int DASH_VELOCITY = 40;
     private const int DASH_DURATION = 6;
@@ -180,7 +180,7 @@ public class PlayerController : MonoBehaviour
         else if (_grounded && groundHits == 0)
         {
             _grounded = false;
-            _frameLeftGrounded = _currentFrame;
+            _frameLeftGround = _currentFrame;
             OnGroundedChange?.Invoke(false, 0);
         }
     }
@@ -192,14 +192,14 @@ public class PlayerController : MonoBehaviour
         bool hasStoredJump = _canJump && _currentFrame < _frameJump + JUMP_BUFFER;
         if (!_hasJump && !hasStoredJump) return;
 
-        bool hasCoyote = _canCoyote && !_grounded && _currentFrame < _frameJump + COYOTE_BUFFER;
+        bool hasCoyote = _canCoyote && !_grounded && _currentFrame < _frameLeftGround + COYOTE_BUFFER;
 
         if (_grounded || hasCoyote)
         {
             Jump();
         }
 
-        if (_hasJump && !_grounded && _airJumpsLeft > 0)
+        else if (_hasJump && !_grounded && _airJumpsLeft > 0)
         {
             AirJump();
         }
@@ -222,7 +222,7 @@ public class PlayerController : MonoBehaviour
         _airJumpsLeft--;
         _internalSpeed.y = JUMP_POWER;
         _externalSpeed.y = 0;
-        OnAirJump.Invoke();
+        // OnAirJump.Invoke(); Enable When needed
     }
 
     private void ResetJump()
@@ -321,10 +321,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCameraLerp()
     {
-        if(_rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling) {
+        if (_rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        {
             CameraManager.instance.LerpYDamping(true);
         }
-        if(_rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        if (_rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
         {
             CameraManager.instance.LerpedFromPlayerFalling = false;
             CameraManager.instance.LerpYDamping(false);
