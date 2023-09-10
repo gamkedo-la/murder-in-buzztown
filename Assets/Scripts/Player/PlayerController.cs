@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     // external
     public event Action<bool, float> OnGroundedChange;
     public event Action<bool, Vector2> OnDashChange;
-    public event Action<bool> OnJump; //boolean to differentiate wall jump
+    public event Action OnJump; //boolean to differentiate wall jump
     public event Action OnAirJump;
     public event Action OnMelee;
     public event Action OnShoot;
@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
         _canJump = false;
         _canCoyote = false;
         _internalSpeed.y = JUMP_POWER;
-        OnJump?.Invoke(false);
+        OnJump?.Invoke();
     }
 
     private void AirJump()
