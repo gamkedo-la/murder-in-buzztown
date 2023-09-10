@@ -26,6 +26,7 @@ public class PlayerAnimationController : MonoBehaviour
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Walk = Animator.StringToHash("Walk");
     private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Melee = Animator.StringToHash("Melee");
 
     void Awake()
     {
@@ -74,6 +75,7 @@ public class PlayerAnimationController : MonoBehaviour
     private int GetState()
     {
         if (Time.time < _lockedAnimTime) return _currentAnimState;
+        if (_melee) return LockState(Melee, 0.45f);
 
         return _input.inputStatus.Move.x == 0 ? Idle : Walk;
 

@@ -55,6 +55,10 @@ public class PlayerController : MonoBehaviour
     private float _dashTimer;
     private Vector2 _dashVelocity;
 
+    // Melee
+    private bool _hasMelee;
+    private int _lastAttackFrame = int.MinValue;
+
     //constants
     private const int JUMP_POWER = 28;
 
@@ -72,6 +76,7 @@ public class PlayerController : MonoBehaviour
     private const float FRICTION_MULTIPLIER = 1.5f;
     private const int MAX_HORIZONTAL_SPEED = 12;
     private const int HORIZONTAL_ACCELERATION = 100;
+    private const int MELEE_COOLDOWN_FRAMES = 15;
 
     private float _fallSpeedYDampingChangeThreshold;
     private bool canAirJump => !_grounded && _airJumpsLeft > 0;
@@ -129,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
         if (_inputStatus.MeleePushed)
         {
-            // needs to attack
+            _hasMelee = true;
         }
 
         if (_inputStatus.ShootPushed)
@@ -145,6 +150,7 @@ public class PlayerController : MonoBehaviour
         HandleCollisions();
         HandleJump();
         HandleDash();
+        HandleMelee();
 
         HandleMovement();
         ApplyMovement();
@@ -330,6 +336,17 @@ public class PlayerController : MonoBehaviour
             CameraManager.instance.LerpedFromPlayerFalling = false;
             CameraManager.instance.LerpYDamping(false);
         }
+    }
+
+    private void HandleMelee()
+    {
+        if (!_hasMelee) return;
+        if (_currentFrame > _lastAttackFrame + MELEE_COOLDOWN_FRAMES)
+        {
+            _lastAttackFrame = _currentFrame;
+            OnMelee?.Invoke();
+        }
+        _hasMelee = false;
     }
 
 
