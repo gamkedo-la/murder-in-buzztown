@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _internalSpeed;
     private Vector2 _externalSpeed;
     private int _currentFrame;
-    private bool _hasControl = true;
+    public bool _hasControl = true;
     // external
     public event Action<bool, float> OnGroundedChange;
     public event Action<bool, Vector2> OnDashChange;
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeAwayControl(bool resetVelocity = true)
     {
-        if (resetVelocity) _rb.velocity = Vector2.zero;
+        if (resetVelocity && _rb) _rb.velocity = Vector2.zero;
         _hasControl = false;
     }
 

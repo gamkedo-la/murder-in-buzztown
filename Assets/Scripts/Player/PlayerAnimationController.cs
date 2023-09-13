@@ -55,6 +55,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
+        if (!_player._hasControl) return;
         int state = GetState();
 
         _jumped = false;
@@ -84,6 +85,7 @@ public class PlayerAnimationController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!_player._hasControl) return;
         TurnCheck();
     }
 

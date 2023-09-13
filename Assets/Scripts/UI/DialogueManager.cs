@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI tmproComponent;
     [SerializeField] string[] _dialogue;
     [SerializeField] private float _textSpeed;
+    [SerializeField] private PlayerController _player;
     private int currentIndex;
     // Start is called before the first frame update
 
@@ -50,6 +51,7 @@ public class DialogueManager : MonoBehaviour
     void StartDialogue()
     {
         currentIndex = 0;
+        _player.TakeAwayControl();
         StartCoroutine(TypeLine());
     }
 
@@ -72,6 +74,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            _player.ReturnControl();
             gameObject.SetActive(false);
         }
     }
