@@ -1192,6 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d54a4ecfd1349474a9ee099962adf268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 8476188434274045365}
 --- !u!4 &677803094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 992991044405104782, guid: ee9bf3806713a2243ac57730bd6a0a9d, type: 3}
@@ -5505,6 +5506,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coll: {fileID: 880293992577168123}
   _hasControl: 1
+  _pushBackTime: 0.2
+  _pushBackForce: 7.5
   _playerLayer:
     serializedVersion: 2
     m_Bits: 0

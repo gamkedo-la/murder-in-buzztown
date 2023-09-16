@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _externalSpeed;
     private int _currentFrame;
     public bool _hasControl = true;
+    public float _pushBackTime; // Discuss these values with chris and turn them in constants.
+    public float _pushBackForce;
     // external
     public event Action<bool, float> OnGroundedChange;
     public event Action<bool, Vector2> OnDashChange;
@@ -320,7 +322,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!_hasControl) return;
 
-
         _rb.velocity = _internalSpeed + _externalSpeed;
         _externalSpeed = Vector2.MoveTowards(_externalSpeed, Vector2.zero, .2f * Time.fixedDeltaTime); //TODO determine external speed decay    
     }
@@ -347,6 +348,19 @@ public class PlayerController : MonoBehaviour
             OnMelee?.Invoke();
         }
         _hasMelee = false;
+    }
+
+    public void ApplyPushBack(Vector2 direction)
+    {
+        _hasControl = false;
+        _rb.AddForce(direction * _pushBackForce, ForceMode2D.Impulse);
+        Invoke("RemovePushBack", _pushBackTime);
+    }
+
+    private void RemovePushBack()
+    {
+        _hasControl = true;
+        _rb.velocity = Vector2.zero; // test
     }
 
 
