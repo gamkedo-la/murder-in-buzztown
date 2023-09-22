@@ -1508,6 +1508,7 @@ MonoBehaviour:
   movedLeftLast: 0
   movedUpLast: 0
   bulletPrefab: {fileID: 6071662454064771817, guid: d3e5689ff4a20164db95697da60be65d, type: 3}
+  slagPrefab: {fileID: 4058596885605081776, guid: ebf8d52f47149d24d8c6316ff6ec46fb, type: 3}
 --- !u!1 &871241629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,7 +1525,7 @@ GameObject:
   - component: {fileID: 871241631}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5445,7 +5446,7 @@ GameObject:
   - component: {fileID: 8476188434274045367}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
