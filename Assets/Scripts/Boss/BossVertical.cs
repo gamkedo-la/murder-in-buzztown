@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BossDashing : BaseState
+public class BossVertical : BaseState
 {
 
     private BossSM _sm;
 
-    const float SPEED = 5f;
-    const int ENDPOINT = 10;
+    const float SPEED = 3f;
+    const int ENDPOINT = 4;
     private Vector3 _targetPosition;
 
 
-    public BossDashing(BossSM stateMachine) : base("BossDashing", stateMachine)
+    public BossVertical(BossSM stateMachine) : base("BossVertical", stateMachine)
     {
         _sm = stateMachine;
     }
@@ -20,8 +18,8 @@ public class BossDashing : BaseState
     public override void Enter()
     {
         base.Enter();
-        _targetPosition = _sm.transform.position + new Vector3(_sm.movedLeftLast ? ENDPOINT : -ENDPOINT, 0, 0);
-        _sm.movedLeftLast = !_sm.movedLeftLast;
+        _targetPosition = _sm.transform.position + new Vector3(0, _sm.movedUpLast ? -ENDPOINT : ENDPOINT, 0);
+        _sm.movedUpLast = !_sm.movedUpLast;
     }
 
     public override void UpdatePhysics()
@@ -31,8 +29,8 @@ public class BossDashing : BaseState
 
         if (Vector3.Distance(_sm.transform.position, _targetPosition) < 0.001f)
         {
-            UnityEngine.Debug.Log("finishedDashing");
-            _sm.ChangeState(_sm.verticalState);
+            UnityEngine.Debug.Log("finishedVertical");
+            _sm.ChangeState(_sm.shootingState);
         }
     }
 }
