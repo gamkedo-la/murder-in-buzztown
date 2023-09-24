@@ -8,10 +8,10 @@ public class BossDashing : BaseState
 
     private BossSM _sm;
 
-    const float GROUND_SPEED = 8f;
-    const float AIR_SPEED = 5f;
-    const int SLAG_COOLDOWN = 600;
-    const int ENDPOINT = 10;
+    const float GROUND_SPEED = 10f;
+    const float AIR_SPEED = 7f;
+    const int SLAG_COOLDOWN = 800;
+    const int ENDPOINT = 30;
     private Vector3 _targetPosition;
     private float _currentSpeed;
     private Stopwatch _sw;
