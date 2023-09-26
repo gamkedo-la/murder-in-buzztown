@@ -1849,6 +1849,7 @@ GameObject:
   - component: {fileID: 860462281}
   - component: {fileID: 860462280}
   - component: {fileID: 860462282}
+  - component: {fileID: 860462283}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -1940,6 +1941,27 @@ MonoBehaviour:
   movedUpLast: 0
   bulletPrefab: {fileID: 6071662454064771817, guid: d3e5689ff4a20164db95697da60be65d, type: 3}
   slagPrefab: {fileID: 4058596885605081776, guid: ebf8d52f47149d24d8c6316ff6ec46fb, type: 3}
+--- !u!95 &860462283
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860462279}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2931b7a9324682648857caf1e20d258e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &871241629
 GameObject:
   m_ObjectHideFlags: 0
