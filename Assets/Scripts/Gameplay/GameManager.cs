@@ -26,8 +26,19 @@ public class GameManager : MonoBehaviour
     {
         if (!_disableConversations)
         {
+            // TODO: determine how dialogue wil be handled
             _dm.StartDialogue();
         }
+    }
+
+    private void HandleWinGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("VictoryScreen");
+    }
+
+    private void HandleDeath()
+    {
+        // Add code for what happens when the character dies
     }
 
 
