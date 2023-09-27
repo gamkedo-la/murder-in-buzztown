@@ -32,7 +32,6 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         tmproComponent.text = string.Empty;
-        StartDialogue();
     }
 
     void HandleDialoguePress(InputAction.CallbackContext obj)
@@ -48,8 +47,9 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void StartDialogue()
+    public void StartDialogue()
     {
+        gameObject.SetActive(true);
         currentIndex = 0;
         _player.TakeAwayControl();
         StartCoroutine(TypeLine());
