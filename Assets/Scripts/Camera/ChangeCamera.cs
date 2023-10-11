@@ -26,6 +26,11 @@ public class ChangeCamera : MonoBehaviour
         ReactivateOriginCamera();
     }
 
+    public bool GetIsPlayerInZone()
+    {
+        return isPlayerInZone;
+    }
+
     private void ActivateTargetCamera()
     {
         originCamera.gameObject.SetActive(false);
