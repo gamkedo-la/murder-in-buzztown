@@ -8,10 +8,11 @@ public class ChangeCamera : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera targetCamera;
     private CinemachineVirtualCamera originCamera;
     private bool isPlayerInZone = false;
+    private bool isPlayerDying = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") || isPlayerInZone) return;
+        if (!other.CompareTag("Player") || isPlayerInZone || isPlayerDying) return;
         isPlayerInZone = true;
 
         GetCurrentActiveCamera();
@@ -20,7 +21,7 @@ public class ChangeCamera : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") || !isPlayerInZone) return;
+        if (!other.CompareTag("Player") || !isPlayerInZone || isPlayerDying) return;
         isPlayerInZone = false;
 
         ReactivateOriginCamera();
@@ -29,6 +30,11 @@ public class ChangeCamera : MonoBehaviour
     public bool GetIsPlayerInZone()
     {
         return isPlayerInZone;
+    }
+
+    public void SetIsPlayerDying(bool value)
+    {
+        isPlayerDying = value;
     }
 
     private void ActivateTargetCamera()
