@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 4399730706108020954}
   m_Layer: 0
   m_Name: MovingBox
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ Transform:
   - {fileID: 3844315002762019341}
   - {fileID: 1238881720316264968}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7935397050229320937
 SpriteRenderer:

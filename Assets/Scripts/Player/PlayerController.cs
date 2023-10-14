@@ -175,10 +175,22 @@ public class PlayerController : MonoBehaviour
 
         if (!_grounded && groundHits > 0)
         {
+
+            if (transform.parent == null)
+            {
+                foreach (RaycastHit2D item in _groundChecks)
+                {
+                    if (item && item.transform.CompareTag("MovingPlatform"))
+                    {
+                        transform.SetParent(item.transform);
+                        break;
+                    }
+                }
+            }
+
             _grounded = true;
             ResetDash();
             ResetJump();
-            //TODO: Check if invoking is truly necesary or just additional function in controller
             OnGroundedChange?.Invoke(true, Mathf.Abs(_internalSpeed.y));
             if (_inputStatus.Move.x == 0)
             {

@@ -36,4 +36,9 @@ public class MovingBox : MonoBehaviour
     {
         isStopped = false;
     }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        other.transform.SetParent(null);
+    }
 }
