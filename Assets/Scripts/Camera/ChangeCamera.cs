@@ -32,11 +32,6 @@ public class ChangeCamera : MonoBehaviour
         return isPlayerInZone;
     }
 
-    public void SetIsPlayerDying(bool value)
-    {
-        isPlayerDying = value;
-    }
-
     private void ActivateTargetCamera()
     {
         originCamera.gameObject.SetActive(false);
