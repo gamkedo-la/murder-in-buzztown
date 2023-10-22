@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [HideInInspector] private Rigidbody2D _rb;
     [SerializeField] private CapsuleCollider2D _coll;
+    [SerializeField] private SteamManager _sm;
     private PlayerInput _input;
     private InputStatus _inputStatus;
 
@@ -61,6 +62,12 @@ public class PlayerController : MonoBehaviour
     private bool _hasMelee;
     private int _lastAttackFrame = int.MinValue;
 
+    // Shoot
+    private bool _hasShoot;
+    private int _lastShootFrame = int.MinValue;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _shootPoint;
+
     //constants
     private const int JUMP_POWER = 28;
 
@@ -79,6 +86,8 @@ public class PlayerController : MonoBehaviour
     private const int MAX_HORIZONTAL_SPEED = 12;
     private const int HORIZONTAL_ACCELERATION = 100;
     private const int MELEE_COOLDOWN_FRAMES = 15;
+    private const int SHOOT_COOLDOWN_FRAMES = 5;
+    private const float SHOOT_STEAM_PRICE = 0.3f;
 
     private float _fallSpeedYDampingChangeThreshold;
     private bool canAirJump => !_grounded && _airJumpsLeft > 0;
@@ -139,9 +148,10 @@ public class PlayerController : MonoBehaviour
             _hasMelee = true;
         }
 
+
         if (_inputStatus.ShootPushed)
         {
-            // needs to attack
+            _hasShoot = true;
         }
     }
 
@@ -152,6 +162,7 @@ public class PlayerController : MonoBehaviour
         HandleCollisions();
         HandleJump();
         HandleDash();
+        HandleShoot();
         HandleMelee();
 
         HandleMovement();
@@ -360,6 +371,22 @@ public class PlayerController : MonoBehaviour
             OnMelee?.Invoke();
         }
         _hasMelee = false;
+    }
+
+    private void HandleShoot()
+    {
+        if (!_hasShoot) return;
+        if (_currentFrame > _lastShootFrame + SHOOT_COOLDOWN_FRAMES)
+        {
+            if (_sm.UseSteam(SHOOT_STEAM_PRICE))
+            {
+                _lastShootFrame = _currentFrame;
+                GameObject temp = Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity);
+                temp.GetComponent<TurretBullet>().SetDirection(transform.rotation.y == 0);
+                OnShoot?.Invoke();
+            }
+        }
+        _hasShoot = false;
     }
 
     public void ApplyPushBack(Vector2 direction)

@@ -15,6 +15,7 @@ public class TurretBullet : MonoBehaviour
     public void SetDirection(bool isRight)
     {
         direction = isRight ? 1 : -1;
+        GetComponent<SpriteRenderer>().flipX = !isRight;
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class TurretBullet : MonoBehaviour
         {
             Debug.Log("Hit Player");
         }
-        DestroySelf();
+        // DestroySelf();
     }
 
     void DestroySelf()

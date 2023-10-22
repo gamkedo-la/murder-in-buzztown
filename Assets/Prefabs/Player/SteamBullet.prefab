@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8340009601510860229}
   - component: {fileID: 2980732552695117459}
   - component: {fileID: 3001385309263815931}
-  - component: {fileID: 5665124497653729999}
+  - component: {fileID: -2493253612711386634}
   m_Layer: 0
   m_Name: SteamBullet
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -2066305640, guid: 87655892da973e545b4a7c7ae64ae8ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -143,7 +143,7 @@ CircleCollider2D:
   m_Offset: {x: -0.09, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &5665124497653729999
+--- !u!114 &-2493253612711386634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1355676091672511104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 103377574e5e70844a2a72ec6aa3bf70, type: 3}
+  m_Script: {fileID: 11500000, guid: fd88cef2406928f4b8f44d4420d95364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletSpeed: 12

@@ -23,11 +23,12 @@ public class SteamManager : MonoBehaviour
         }
     }
 
-    public void UseSteam(float amount)
+    public bool UseSteam(float amount)
     {
-        if (_currentSteam - amount < 0) return; // This validation should be done outside of here
+        if (_currentSteam - amount < 0) return false; // This validation should be done outside of here
         _regainSteamTimer = 0f;
         _currentSteam -= amount;
         fillImg.fillAmount = _currentSteam;
+        return true;
     }
 }
