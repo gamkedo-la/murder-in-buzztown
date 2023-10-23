@@ -120,6 +120,9 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
         Physics2D.queriesStartInColliders = false;
+    }
+
+    private void Start() {
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
