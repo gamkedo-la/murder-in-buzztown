@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool _disableConversations;
     [SerializeField] private DialogueManager _dm;
     [SerializeField] private PlayerController _pc;
+    [SerializeField] private GameObject audioManager;
+    private AudioManager audioManagerScript;
 
     private void Awake()
     {
@@ -20,6 +23,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        audioManagerScript = audioManager.GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -29,6 +34,13 @@ public class GameManager : MonoBehaviour
             // TODO: determine how dialogue wil be handled
             _dm.StartDialogue();
         }
+
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+
+            audioManagerScript.ChangeMusic(audioManagerScript.buzztownThemeAudioClip);
+        }
+        
     }
 
     private void HandleWinGame()
