@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController _pc;
     [SerializeField] private GameObject audioManager;
     private AudioManager audioManagerScript;
+    [SerializeField] GameObject dialogueManager;
+    public DialogueManager dialogueManagerScript;
+
+    public string gameState = "in dialogue";
 
     private void Awake()
     {
@@ -25,6 +29,7 @@ public class GameManager : MonoBehaviour
         }
 
         audioManagerScript = audioManager.GetComponent<AudioManager>();
+        dialogueManagerScript = dialogueManager.GetComponent<DialogueManager>();
     }
 
     private void Start()
@@ -37,8 +42,9 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
-
             audioManagerScript.ChangeMusic(audioManagerScript.buzztownThemeAudioClip);
+            dialogueManager.SetActive(true);
+            StartCoroutine(dialogueManagerScript.WaitToFadeInOpeningDialogueBox());
         }
         
     }

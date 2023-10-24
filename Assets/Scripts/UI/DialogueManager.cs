@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float _textSpeed;
     [SerializeField] private PlayerController _player;
     private int currentIndex;
-    // Start is called before the first frame update
+
+    [SerializeField] GameObject[] allDialogueBoxGameObjects;
 
     private PlayerInputs _inputs;
     private void Awake()
@@ -77,5 +79,31 @@ public class DialogueManager : MonoBehaviour
             _player.ReturnControl();
             gameObject.SetActive(false);
         }
+    }
+
+    public IEnumerator WaitToFadeInOpeningDialogueBox()
+    {
+        yield return new WaitForSeconds(1);
+        StartCoroutine(FadeIn());
+        StartDialogue();
+    }
+
+    IEnumerator FadeIn()
+    {
+        GameObject lastUI_Object = allDialogueBoxGameObjects[allDialogueBoxGameObjects.Length - 1].gameObject;
+        Color lastImageColor = lastUI_Object.GetComponent<Image>().color;
+
+        while (lastImageColor.a < 1)
+        {
+            for (int i = 0; i < allDialogueBoxGameObjects.Length - 1; i++)
+            {
+                Color currentImageColor = allDialogueBoxGameObjects[i].gameObject.GetComponent<Image>().color;
+                currentImageColor.a += 0.25f * Time.deltaTime;
+                Color newImageColor = currentImageColor;
+                allDialogueBoxGameObjects[i].gameObject.GetComponent<Image>().color = newImageColor;
+            }
+            yield return null; // Wait until the next frame
+        }
+        
     }
 }
