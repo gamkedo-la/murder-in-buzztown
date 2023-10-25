@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] GameObject gameManager;
+    GameManager gameManagerScript;
+
     [HideInInspector] private Rigidbody2D _rb;
     [SerializeField] private CapsuleCollider2D _coll;
     [SerializeField] private SteamManager _sm;
@@ -128,6 +131,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        
+
         _inputStatus = _input.inputStatus;
 
         if (_inputStatus.JumpPushed)
