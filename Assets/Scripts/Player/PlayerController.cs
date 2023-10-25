@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     private const int GROUND_SPEED_DECAY = 60;
     private const int AIR_SPEED_DECAY = 30;
     private const float FRICTION_MULTIPLIER = 1.5f;
-    private const int MAX_HORIZONTAL_SPEED = 12;
+    private const int MAX_HORIZONTAL_SPEED = 8;
     private const int HORIZONTAL_ACCELERATION = 100;
     private const int MELEE_COOLDOWN_FRAMES = 15;
     private const int SHOOT_COOLDOWN_FRAMES = 5;

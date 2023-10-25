@@ -41,4 +41,12 @@ public class MovingBox : MonoBehaviour
     {
         other.transform.SetParent(null);
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            print("player staying on moving box detected");
+        }
+    }
 }
