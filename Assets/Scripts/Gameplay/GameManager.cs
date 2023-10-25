@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject dialogueManager;
     public DialogueManager dialogueManagerScript;
 
-    public string gameState = "in dialogue";
+    public string gameState = "first dialogue";
 
     private void Awake()
     {

@@ -7,12 +7,18 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI tmproComponent;
-    [SerializeField] string[] _dialogue;
+    public string[] _dialogue;
+    //Another day, another dead person.
+    //That's just how things are here in Buzztown
     [SerializeField] private float _textSpeed;
     [SerializeField] private PlayerController _player;
     private int currentIndex;
 
     [SerializeField] GameObject[] allDialogueBoxGameObjects;
+
+    [SerializeField] GameObject gameManager;
+    [SerializeField] GameObject buzztownPoliceman;
+    BuzztownPoliceScript buzztownPolicemanScript;
 
     private PlayerInputs _inputs;
     private void Awake()
@@ -34,6 +40,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         tmproComponent.text = string.Empty;
+        buzztownPolicemanScript = buzztownPoliceman.GetComponent<BuzztownPoliceScript>();
     }
 
     void HandleDialoguePress(InputAction.CallbackContext obj)
@@ -77,7 +84,9 @@ public class DialogueManager : MonoBehaviour
         else
         {
             _player.ReturnControl();
+            tmproComponent.text = string.Empty;
             gameObject.SetActive(false);
+            gameManager.GetComponent<GameManager>().gameState = "gameplay";
         }
     }
 
