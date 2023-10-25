@@ -94,6 +94,15 @@ public class PlayerController : MonoBehaviour
 
     private float _fallSpeedYDampingChangeThreshold;
     private bool canAirJump => !_grounded && _airJumpsLeft > 0;
+
+    #region debug checkpoints
+    [SerializeField] Transform checkpoint1Transform;
+    [SerializeField] Transform checkpoint2Transform;
+    [SerializeField] Transform checkpoint3Transform;
+    [SerializeField] Transform checkpoint4Transform;
+    [SerializeField] Transform checkpoint5Transform;
+    #endregion
+
     public void ApplyVelocity(Vector2 vel, bool isDecay)
     {
         if (!isDecay) _internalSpeed += vel;
@@ -131,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+        HandleDebugCheckpointInput();
 
         _inputStatus = _input.inputStatus;
 
@@ -160,6 +169,30 @@ public class PlayerController : MonoBehaviour
         if (_inputStatus.ShootPushed)
         {
             _hasShoot = true;
+        }
+    }
+
+    private void HandleDebugCheckpointInput()
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            gameObject.transform.position = checkpoint1Transform.position;
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            gameObject.transform.position = checkpoint2Transform.position;
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            gameObject.transform.position = checkpoint3Transform.position;
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha4))
+        {
+            gameObject.transform.position = checkpoint4Transform.position;
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            gameObject.transform.position = checkpoint5Transform.position;
         }
     }
 
