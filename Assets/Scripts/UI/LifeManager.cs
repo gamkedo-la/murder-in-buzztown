@@ -3,7 +3,7 @@ using UnityEngine;
 public class LifeManager : MonoBehaviour
 {
     private int _currentLives = 3;
-    private int _maxLives = 3; // Initially this will be 3 but you can increase it to 4
+    private int _maxLives = 4; 
 
     private GameObject player;
 
@@ -28,5 +28,16 @@ public class LifeManager : MonoBehaviour
         {
             Destroy(player);
         }
+    }
+
+    public void HandleGinsengTeaPowerup()
+    {
+        _currentLives = 4;
+
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
     }
 }
