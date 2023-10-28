@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     [SerializeField] private AudioSource _musicSource, _effectsSource;
     public AudioClip buzztownThemeAudioClip;
+    public AudioClip dialogueBlipAudioClip;
     private void Awake() {
         if(Instance == null){
             Instance = this;

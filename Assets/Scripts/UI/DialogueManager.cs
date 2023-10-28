@@ -66,9 +66,19 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeLine()
     {
+        int characterCount = 0;
+
         foreach (char c in _dialogue[currentIndex].ToCharArray())
         {
             tmproComponent.text += c;
+
+            characterCount++; 
+
+            if (characterCount % 2 == 0) 
+            {
+                AudioManager.Instance.PlayEffect(AudioManager.Instance.dialogueBlipAudioClip);
+            }
+
             yield return new WaitForSeconds(_textSpeed);
         }
     }
