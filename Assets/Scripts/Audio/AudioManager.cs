@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip dialogueBlipAudioClip;
     public AudioClip jumpAudioClip;
     public AudioClip hitAudioClip;
+    public AudioClip deathAudioClip;
     #endregion
 
     private void Awake() {

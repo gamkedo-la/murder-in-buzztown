@@ -23,10 +23,14 @@ public class LifeManager : MonoBehaviour
         
         transform.GetChild(_currentLives - 1).GetChild(0).gameObject.SetActive(false);
         _currentLives--;
-        AudioManager.Instance.PlayEffect(AudioManager.Instance.hitAudioClip);
 
-        if (_currentLives < 1)
+        if (_currentLives > 0)
         {
+            AudioManager.Instance.PlayEffect(AudioManager.Instance.hitAudioClip);
+        }
+        else
+        {
+            AudioManager.Instance.PlayEffect(AudioManager.Instance.deathAudioClip);
             Destroy(player);
         }
     }
