@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip buzztownThemeAudioClip;
     public AudioClip dialogueBlipAudioClip;
     public AudioClip jumpAudioClip;
+    public AudioClip hitAudioClip;
     #endregion
 
     private void Awake() {
