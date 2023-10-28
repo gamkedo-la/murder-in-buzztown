@@ -21,6 +21,7 @@ public class BuzztownPoliceScript : MonoBehaviour
         {
             if (!spokenYet)
             {
+                GameManager.Instance.gameState = "in dialogue";
                 dialogueManagerScript._dialogue[0] = myDialogue1;
                 dialogueManagerScript._dialogue[1] = myDialogue2;
                 dialogueManagerScript.StartDialogue();

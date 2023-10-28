@@ -148,6 +148,10 @@ public class PlayerController : MonoBehaviour
         {
             _hasJump = true;
             _frameJump = _currentFrame;
+            if (GameManager.Instance.gameState == "gameplay")
+            {
+                AudioManager.Instance.PlayEffect(AudioManager.Instance.jumpAudioClip);
+            }
         }
 
         if (_inputStatus.Move.x != 0)

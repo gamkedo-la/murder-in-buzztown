@@ -4,8 +4,13 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     [SerializeField] private AudioSource _musicSource, _effectsSource;
+
+    #region cached audio clips
     public AudioClip buzztownThemeAudioClip;
     public AudioClip dialogueBlipAudioClip;
+    public AudioClip jumpAudioClip;
+    #endregion
+
     private void Awake() {
         if(Instance == null){
             Instance = this;
