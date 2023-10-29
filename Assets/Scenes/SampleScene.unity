@@ -9657,6 +9657,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5347214182334886873, guid: 8c2f9d39efa23504bb3d5a26fa8dc154, type: 3}
+      propertyPath: MaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347214182334886873, guid: 8c2f9d39efa23504bb3d5a26fa8dc154, type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347214182334886873, guid: 8c2f9d39efa23504bb3d5a26fa8dc154, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347214182334886873, guid: 8c2f9d39efa23504bb3d5a26fa8dc154, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6859965268118161827, guid: 8c2f9d39efa23504bb3d5a26fa8dc154, type: 3}
       propertyPath: m_Name
       value: steam_whistle
