@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip jumpAudioClip;
     public AudioClip hitAudioClip;
     public AudioClip deathAudioClip;
+    public AudioClip turretShotAudioClip;
     #endregion
 
     private void Awake() {
