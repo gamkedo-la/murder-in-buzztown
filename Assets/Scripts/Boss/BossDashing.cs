@@ -41,14 +41,12 @@ public class BossDashing : BaseState
 
         if (Vector3.Distance(_sm.transform.position, _targetPosition) < 0.001f)
         {
-            UnityEngine.Debug.Log("finishedDashing");
+            // UnityEngine.Debug.Log("finishedDashing");
             _sm.ChangeState(_sm.verticalState);
         }
 
         if (_sm.movedUpLast)
         {
-            UnityEngine.Debug.Log(_sw.ElapsedMilliseconds);
-
             if (_sw.ElapsedMilliseconds > SLAG_COOLDOWN)
             {
                 GameObject.Instantiate(_sm.slagPrefab, _sm.transform.position, Quaternion.identity);

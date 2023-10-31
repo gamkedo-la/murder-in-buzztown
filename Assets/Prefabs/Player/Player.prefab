@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 6072211962985641612}
   - component: {fileID: 802805830619404444}
   - component: {fileID: 5366660542421695244}
+  - component: {fileID: 4717004514609065045}
   m_Layer: 6
   m_Name: SwordColider
-  m_TagString: Untagged
+  m_TagString: PlayerSword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +113,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 5956099319261511784}
+--- !u!50 &4717004514609065045
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882957415080124313}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5112512468606737866
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +212,7 @@ Transform:
   - {fileID: 8796925682313950480}
   - {fileID: 7643161405847188327}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5141706519856406247
 Rigidbody2D:
@@ -325,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37bffd8acbe5cbb49af64ca32c704506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   _coll: {fileID: 7918378721498092770}
   _sm: {fileID: 0}
   _hasControl: 1
@@ -339,6 +368,11 @@ MonoBehaviour:
   _groundDistance: 0.05
   _bulletPrefab: {fileID: 1355676091672511104, guid: 4c117e9be4396d446b0182f0594d62f5, type: 3}
   _shootPoint: {fileID: 7643161405847188327}
+  checkpoint1Transform: {fileID: 0}
+  checkpoint2Transform: {fileID: 0}
+  checkpoint3Transform: {fileID: 0}
+  checkpoint4Transform: {fileID: 0}
+  checkpoint5Transform: {fileID: 0}
 --- !u!212 &725654968320027018
 SpriteRenderer:
   m_ObjectHideFlags: 0

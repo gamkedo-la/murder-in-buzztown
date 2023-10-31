@@ -24,7 +24,6 @@ public class BossSM : StateMachine
         dashingState = new BossDashing(this);
         verticalState = new BossVertical(this);
         shootingState = new BossShooting(this);
-        UnityEngine.Debug.Log("start");
         // anim = GetComponent<Animator>();
         _sm = this;
         movedLeftLast = false;

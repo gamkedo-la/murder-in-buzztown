@@ -10,7 +10,6 @@ public class StraightBullet : MonoBehaviour
     public void SetTarget(Vector3 pos)
     {
         _target = pos;
-        Debug.Log(_target);
     }
 
     // Update is called once per frame

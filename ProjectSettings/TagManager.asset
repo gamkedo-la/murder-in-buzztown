@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - MovingPlatform
   - Lives
+  - PlayerBullet
+  - PlayerSword
+  - Boss
   layers:
   - Default
   - TransparentFX

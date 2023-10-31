@@ -23,7 +23,7 @@ public class BossIdle : BaseState
         base.UpdateLogic();
         if (sw.ElapsedMilliseconds > 400)
         {
-            UnityEngine.Debug.Log("finishedIdle");
+            // UnityEngine.Debug.Log("finishedIdle");
             _sm.ChangeState(_sm.dashingState);
         }
     }

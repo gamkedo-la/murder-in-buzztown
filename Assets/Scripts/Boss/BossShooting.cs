@@ -30,7 +30,7 @@ public class BossShooting : BaseState
 
         if (_sw.ElapsedMilliseconds > BULLET_COOLDOWN && _bulletCount < MAX_BULLETS_SHOT)
         {
-            UnityEngine.Debug.Log("shooting");
+            // UnityEngine.Debug.Log("shooting");
             GameObject bullet = GameObject.Instantiate(_sm.bulletPrefab, _sm.transform.position, Quaternion.identity);
             bullet.GetComponent<StraightBullet>().SetTarget(_sm.playerTransform.position);
             _sw.Restart();

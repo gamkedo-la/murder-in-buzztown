@@ -29,7 +29,7 @@ public class BossVertical : BaseState
 
         if (Vector3.Distance(_sm.transform.position, _targetPosition) < 0.001f)
         {
-            UnityEngine.Debug.Log("finishedVertical");
+            // UnityEngine.Debug.Log("finishedVertical");
             _sm.ChangeState(_sm.shootingState);
         }
     }

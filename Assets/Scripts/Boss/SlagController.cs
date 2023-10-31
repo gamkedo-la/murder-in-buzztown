@@ -18,7 +18,7 @@ public class SlagController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Slag hit player");
+            // Debug.Log("Slag hit player");
         }
         if (other.CompareTag("Ground"))
         {
