@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class EnemyLifeController : MonoBehaviour
 {
-    [SerializeField] private int _health;
-    [SerializeField] private int _healthToFlash;
     [SerializeField] private SpriteRenderer _sr;
-    [SerializeField] float _colorChangeRate;
+    [SerializeField] private float _colorChangeRate;
     private bool _isFlashing;
+    const int SWORD_DAMAGE = 5;
+    const int BULLET_DAMAGE = 2;
+    public const int MAX_HEALTH = 30;
+    public int _health;
 
-    const int SWORD_DAMAGE = 2;
-    const int BULLET_DAMAGE = 1;
+    private void Start()
+    {
+        _health = MAX_HEALTH;
+    }
 
     private void Update()
     {
-        if (gameObject.CompareTag("Boss") && _health < _healthToFlash && !_isFlashing)
+        // Flash when bellow 30% life
+        if (gameObject.CompareTag("Boss") && _health < MAX_HEALTH * .3 && !_isFlashing)
         {
             _isFlashing = true;
             InvokeRepeating("AlterColor", 0, _colorChangeRate);
