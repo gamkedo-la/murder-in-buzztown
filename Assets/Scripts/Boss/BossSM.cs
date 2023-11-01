@@ -16,6 +16,7 @@ public class BossSM : StateMachine
     public bool movedUpLast;
     public GameObject bulletPrefab;
     public GameObject slagPrefab;
+    public BossLifeController lifeController;
     // public Animator anim;
 
     private void Awake()

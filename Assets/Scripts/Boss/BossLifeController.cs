@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLifeController : MonoBehaviour
+public class BossLifeController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _sr;
     [SerializeField] private float _colorChangeRate;
@@ -20,11 +20,16 @@ public class EnemyLifeController : MonoBehaviour
     private void Update()
     {
         // Flash when bellow 30% life
-        if (gameObject.CompareTag("Boss") && _health < MAX_HEALTH * .3 && !_isFlashing)
+        if (gameObject.CompareTag("Boss") && IsBelowPercentage(.3f) && !_isFlashing)
         {
             _isFlashing = true;
             InvokeRepeating("AlterColor", 0, _colorChangeRate);
         }
+    }
+
+    public bool IsBelowPercentage(float percentage)
+    {
+        return _health < MAX_HEALTH * percentage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -42,7 +42,14 @@ public class BossDashing : BaseState
         if (Vector3.Distance(_sm.transform.position, _targetPosition) < 0.001f)
         {
             // UnityEngine.Debug.Log("finishedDashing");
-            _sm.ChangeState(_sm.verticalState);
+            if (_sm.lifeController.IsBelowPercentage(.3f) && Random.value > 0.7)
+            {
+                _sm.ChangeState(_sm.dashingState);
+            }
+            else
+            {
+                _sm.ChangeState(_sm.verticalState);
+            }
         }
 
         if (_sm.movedUpLast)
