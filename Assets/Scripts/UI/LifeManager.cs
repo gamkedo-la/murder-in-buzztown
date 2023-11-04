@@ -1,15 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
     private int _currentLives = 3;
-    private int _maxLives = 4; 
+    private int _maxLives = 3; 
 
     private GameObject player;
+
+    private CheckpointManager checkpointManager;
+    [SerializeField] float timeToRespawn = 1f;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        checkpointManager = FindObjectOfType<CheckpointManager>();
     }
     public void IncreaseLives()
     {
@@ -30,13 +35,48 @@ public class LifeManager : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.PlayEffect(AudioManager.Instance.deathAudioClip);
-            Destroy(player);
+            KillPlayer();
+        }
+    }
+
+    public void KillPlayer()
+    {
+        AudioManager.Instance.PlayEffect(AudioManager.Instance.deathAudioClip);
+        StartCoroutine(HideAndSpawnPlayerAfterDelay());
+    }
+    
+    private IEnumerator HideAndSpawnPlayerAfterDelay()
+    {
+        SetPlayerVisibleStateTo(false);
+
+        yield return new WaitForSeconds(timeToRespawn);
+        checkpointManager.SpawnPlayerAtCurrentCheckpoint();
+        
+        RefillAllLives();
+        SetPlayerVisibleStateTo(true);
+    }
+
+    private void SetPlayerVisibleStateTo(bool state)
+    {
+        player.GetComponent<SpriteRenderer>().enabled = state;
+        foreach(Collider2D collider2D in player.GetComponents<BoxCollider2D>())
+        {
+            collider2D.enabled = state;
+        }
+    }
+
+    private void RefillAllLives()
+    {
+        if (_currentLives > 0) return;  // if you fall in a hole and still have life you respawn with the same amount of life you had before falling
+        for (int life_idx = 0; life_idx < _maxLives; life_idx++)
+        {
+            IncreaseLives();
         }
     }
 
     public void HandleGinsengTeaPowerup()
     {
+        _maxLives = 4;
         _currentLives = 4;
 
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);

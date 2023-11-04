@@ -10,16 +10,22 @@ public class Void : MonoBehaviour
     private Transform playerTransform;
     private CinemachineBrain brain;
     private bool isPlayerFallen = false;
+    private CheckpointManager checkpointManager;
+    private LifeManager lifeManager;
 
     private void Start() 
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         brain = FindObjectOfType<CinemachineBrain>();
+        checkpointManager = FindObjectOfType<CheckpointManager>();
+        lifeManager = FindObjectOfType<LifeManager>();
     }
     
     // Update is called once per frame
     void Update()
     {
+        if (playerTransform == null) return;
+
         transform.position = new Vector2(
             playerTransform.position.x,
             transform.position.y
@@ -30,15 +36,7 @@ public class Void : MonoBehaviour
     {
         if (!other.CompareTag("Player") || isPlayerFallen) return;
         isPlayerFallen = true;
-        StartCoroutine(RespawnPlayerAfterDelay(other.gameObject));
-    }
-
-    private IEnumerator RespawnPlayerAfterDelay(GameObject other)
-    {
         brain.ActiveVirtualCamera.Follow = null;
-        yield return new WaitForSeconds(timeToRespawn);
-        other.transform.position = respawnLocation.position;
-        isPlayerFallen = false;
-        brain.ActiveVirtualCamera.Follow = other.transform;
+        lifeManager.KillPlayer();
     }
 }
