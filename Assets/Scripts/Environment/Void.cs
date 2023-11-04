@@ -35,8 +35,17 @@ public class Void : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (!other.CompareTag("Player") || isPlayerFallen) return;
+        Debug.Log("Player is falling in the void");
+        
         isPlayerFallen = true;
         brain.ActiveVirtualCamera.Follow = null;
         lifeManager.KillPlayer();
+        StartCoroutine(ResetIsFallen());
+    }
+
+    private IEnumerator ResetIsFallen()
+    {
+        yield return new WaitForSeconds(0.25f);
+        isPlayerFallen = false;
     }
 }
