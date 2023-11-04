@@ -8,7 +8,6 @@ public class Void : MonoBehaviour
     [SerializeField] private Transform respawnLocation;
     [SerializeField] private float timeToRespawn = 1f;
     private Transform playerTransform;
-    private CinemachineBrain brain;
     private bool isPlayerFallen = false;
     private CheckpointManager checkpointManager;
     private LifeManager lifeManager;
@@ -16,7 +15,6 @@ public class Void : MonoBehaviour
     private void Start() 
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        brain = FindObjectOfType<CinemachineBrain>();
         checkpointManager = FindObjectOfType<CheckpointManager>();
         lifeManager = FindObjectOfType<LifeManager>();
     }
@@ -36,9 +34,8 @@ public class Void : MonoBehaviour
     {
         if (!other.CompareTag("Player") || isPlayerFallen) return;
         Debug.Log("Player is falling in the void");
-        
+
         isPlayerFallen = true;
-        brain.ActiveVirtualCamera.Follow = null;
         lifeManager.KillPlayer();
         StartCoroutine(ResetIsFallen());
     }

@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class ToxicWater : MonoBehaviour
 {
-    [SerializeField] Transform respawnLocation;
-    [SerializeField] float timeToRespawn = 1f;
     private bool isPlayerFallen = false;
+    private LifeManager lifeManager;
+
+    private void Start()
+    {
+        lifeManager = FindObjectOfType<LifeManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player") || isPlayerFallen) return;
         isPlayerFallen = true;
-        StartCoroutine(RespawnPlayerAfterDelay(other.gameObject));
+        StartCoroutine(DrownAndDie());
     }
 
-    private IEnumerator RespawnPlayerAfterDelay(GameObject other)
+    private IEnumerator DrownAndDie()
     {
-        yield return new WaitForSeconds(timeToRespawn);
-        other.transform.position = respawnLocation.position;
+        yield return new WaitForSeconds(0.5f);
+
+        lifeManager.KillPlayer();
         isPlayerFallen = false;
     }
 }
