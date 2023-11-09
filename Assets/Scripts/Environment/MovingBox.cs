@@ -9,6 +9,7 @@ public class MovingBox : MonoBehaviour
     private Vector2[] positions;
     bool isStopped;
     int posIndex;
+    private Rigidbody2D _rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,15 +17,20 @@ public class MovingBox : MonoBehaviour
         positions = new Vector2[2];
         positions[0] = transform.GetChild(0).position;
         positions[1] = transform.GetChild(1).position;
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (isStopped) return;
-        transform.position = Vector2.MoveTowards(transform.position, positions[posIndex], _movementSpeed * Time.deltaTime);
+        Vector2 direction = (positions[posIndex] - (Vector2)transform.position).normalized;
+        Debug.Log(direction);
+        _rb.MovePosition((Vector2)transform.position + direction * _movementSpeed * Time.deltaTime);
+        // transform.position = Vector2.MoveTowards(transform.position, positions[posIndex], _movementSpeed * Time.deltaTime);
+        Debug.Log(Vector2.Distance(transform.position, positions[posIndex]));
 
-        if (Vector2.Distance(transform.position, positions[posIndex]) < 0.3f)
+        if (Vector2.Distance(transform.position, positions[posIndex]) <= 0.3f)
         {
             isStopped = true;
             posIndex = posIndex == 1 ? 0 : 1; // since there are only 2 posible positions
@@ -39,14 +45,9 @@ public class MovingBox : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        other.transform.SetParent(null);
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player") && other.transform.parent != null)
         {
-            print("player staying on moving box detected");
+            other.transform.SetParent(null);
         }
     }
 }

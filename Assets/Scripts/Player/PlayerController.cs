@@ -134,7 +134,8 @@ public class PlayerController : MonoBehaviour
         Physics2D.queriesStartInColliders = false;
     }
 
-    private void Start() {
+    private void Start()
+    {
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
