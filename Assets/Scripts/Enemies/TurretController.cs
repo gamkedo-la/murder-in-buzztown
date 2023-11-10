@@ -11,7 +11,7 @@ public class TurretController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("Shoot", 1f, _spawnTime);
+        // InvokeRepeating("Shoot", 1f, _spawnTime);
     }
 
     void Shoot()

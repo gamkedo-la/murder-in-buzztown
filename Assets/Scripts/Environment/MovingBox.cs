@@ -25,10 +25,7 @@ public class MovingBox : MonoBehaviour
     {
         if (isStopped) return;
         Vector2 direction = (positions[posIndex] - (Vector2)transform.position).normalized;
-        Debug.Log(direction);
         _rb.MovePosition((Vector2)transform.position + direction * _movementSpeed * Time.deltaTime);
-        // transform.position = Vector2.MoveTowards(transform.position, positions[posIndex], _movementSpeed * Time.deltaTime);
-        Debug.Log(Vector2.Distance(transform.position, positions[posIndex]));
 
         if (Vector2.Distance(transform.position, positions[posIndex]) <= 0.3f)
         {
