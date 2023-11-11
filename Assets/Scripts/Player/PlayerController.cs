@@ -435,7 +435,7 @@ public class PlayerController : MonoBehaviour
         _hasShoot = false;
     }
 
-    public void ApplyPushBack(Vector2 direction)
+    public void ApplyPushBack(Vector2 direction, Boolean isDamage = false)
     {
         _rb.velocity = new Vector2(0, _rb.velocity.y);
         _hasControl = false;

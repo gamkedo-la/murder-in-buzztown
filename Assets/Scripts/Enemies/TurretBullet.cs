@@ -6,14 +6,9 @@ public class TurretBullet : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed;
     int direction = 1;
-
-    private GameObject lifeManager;
-    private LifeManager lifeManagerScript;
     // Start is called before the first frame update
     void Start()
     {
-        lifeManager = GameObject.FindGameObjectWithTag("Lives");
-        lifeManagerScript = lifeManager.GetComponent<LifeManager>();
         Invoke("DestroySelf", 2f);
     }
 
@@ -33,7 +28,9 @@ public class TurretBullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            lifeManagerScript.DecreaseLives();
+            GameManager.Instance.DecreaseLives();
+            Vector2 direction = new Vector2(transform.position.x < other.transform.position.x ? 1 : -1, 0);
+            other.GetComponent<PlayerController>().ApplyPushBack(direction, true);
         }
         DestroySelf();
     }

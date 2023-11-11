@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DialogueManager _dm;
     [SerializeField] private PlayerController _pc;
     [SerializeField] private GameObject audioManager;
+    [SerializeField] private LifeManager _lifeManager;
     private AudioManager audioManagerScript;
     [SerializeField] GameObject dialogueManager;
     public DialogueManager dialogueManagerScript;
@@ -48,6 +49,16 @@ public class GameManager : MonoBehaviour
             // StartCoroutine(dialogueManagerScript.WaitToFadeInOpeningDialogueBox());
         }
 
+    }
+
+    public void DecreaseLives()
+    {
+        _lifeManager.DecreaseLives();
+    }
+
+    public void IncreaseLives()
+    {
+        _lifeManager.IncreaseLives();
     }
 
     private void HandleWinGame()
