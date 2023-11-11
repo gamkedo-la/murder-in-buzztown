@@ -437,6 +437,7 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyPushBack(Vector2 direction)
     {
+        _rb.velocity = new Vector2(0, _rb.velocity.y);
         _hasControl = false;
         _rb.AddForce(direction * _pushBackForce, ForceMode2D.Impulse);
         Invoke("RemovePushBack", _pushBackTime);

@@ -7,9 +7,7 @@ public class SwordController : MonoBehaviour
     [SerializeField] private PlayerController _player;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.isTrigger) return;
-        
-        Debug.Log(other.name);
+        if (other.isTrigger || other.CompareTag("Player")) return;
         Vector2 direction = new Vector2(other.transform.position.x < _player.transform.position.x ? 1 : -1, 0);
         _player.ApplyPushBack(direction);
     }

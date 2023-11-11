@@ -16,7 +16,6 @@ public class EnemyLifeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
         if (other.CompareTag("PlayerSword"))
         {
             _health -= SWORD_DAMAGE;
