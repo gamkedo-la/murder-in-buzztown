@@ -9,6 +9,7 @@ public struct InputStatus
     public bool DashPushed;
     public bool MeleePushed;
     public bool ShootPushed;
+    public bool InteractPushed;
 }
 
 public class PlayerInput : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerInput : MonoBehaviour
     public InputStatus inputStatus { get; private set; }
 
     private PlayerInputs _inputs;
-    private InputAction _move, _jump, _dash, _melee, _shoot;
+    private InputAction _move, _jump, _dash, _melee, _shoot, _interact;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         _dash = _inputs.Player.Dash;
         _melee = _inputs.Player.Melee;
         _shoot = _inputs.Player.Shoot;
+        _interact = _inputs.Player.Interact;
     }
 
     private void OnEnable() => _inputs.Enable();
@@ -44,6 +46,7 @@ public class PlayerInput : MonoBehaviour
             MeleePushed = _melee.WasPressedThisFrame(),
             Move = _move.ReadValue<Vector2>(),
             ShootPushed = _shoot.WasPressedThisFrame(),
+            InteractPushed = _interact.WasPressedThisFrame(),
         };
     }
 }

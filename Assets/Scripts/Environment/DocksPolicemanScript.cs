@@ -37,4 +37,9 @@ public class DocksPolicemanScript : MonoBehaviour
             }
         }
     }
+
+    public void Talk()
+    {
+
+    }
 }

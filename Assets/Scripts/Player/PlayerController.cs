@@ -103,6 +103,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform checkpoint5Transform;
     #endregion
 
+    #region dialogue interactions
+    public GameObject anchoredDialogue;
+    private bool _hasInteracted;
+    #endregion
+
     public void ApplyVelocity(Vector2 vel, bool isDecay)
     {
         if (!isDecay) _internalSpeed += vel;
@@ -142,6 +147,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleDebugCheckpointInput();
+        HandleInteraction();
 
         _inputStatus = _input.inputStatus;
 
@@ -174,6 +180,10 @@ public class PlayerController : MonoBehaviour
         if (_inputStatus.ShootPushed)
         {
             _hasShoot = true;
+        }
+        if (_inputStatus.InteractPushed)
+        {
+            _hasInteracted = true;
         }
     }
 
@@ -449,5 +459,20 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = Vector2.zero; // test
     }
 
+    private void HandleInteraction()
+    {
+        if (anchoredDialogue && _hasInteracted)
+        {
+            if (anchoredDialogue.CompareTag("Police1"))
+            {
+                anchoredDialogue.GetComponent<BuzztownPoliceScript>().Talk();
+            }
+            else
+            {
+                anchoredDialogue.GetComponent<DocksPolicemanScript>().Talk();
+            }
+            _hasInteracted = false;
+        }
+    }
 
 }
