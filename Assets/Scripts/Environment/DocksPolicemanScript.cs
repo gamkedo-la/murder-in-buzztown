@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DocksPolicemanScript : MonoBehaviour
 {
-    private bool spokenYet = false;
+    private bool _hasSpoken;
     public string myDialogue1 = "We've already scoped out the scene here detective... We believe the suspect was here, but we don't have any specific clues.";
     public string myDialogue2 = "Try some of this ginseng tea. It's supposed to be very healthy, and the way we steam it enhances it's benefits.";
 
@@ -23,23 +23,32 @@ public class DocksPolicemanScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Player" && !_hasSpoken)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            collision.GetComponent<PlayerController>().anchoredDialogue = gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Player")
         {
-            if (!spokenYet)
-            {
-                GameManager.Instance.gameState = "in dialogue";
-                dialogueManagerScript._dialogue[0] = myDialogue1;
-                dialogueManagerScript._dialogue[1] = myDialogue2;
-                dialogueManagerScript.StartDialogue();
-                spokenYet = true;
-
-                lifeManagerScript.HandleGinsengTeaPowerup();
-            }
+            transform.GetChild(0).gameObject.SetActive(false);
+            collision.GetComponent<PlayerController>().anchoredDialogue = null;
         }
     }
 
     public void Talk()
     {
-
+        if (!_hasSpoken)
+        {
+            _hasSpoken = true;
+            GameManager.Instance.gameState = "in dialogue";
+            dialogueManagerScript._dialogue[0] = myDialogue1;
+            dialogueManagerScript._dialogue[1] = myDialogue2;
+            dialogueManagerScript.StartDialogue();
+            lifeManagerScript.HandleGinsengTeaPowerup();
+        }
     }
 }
