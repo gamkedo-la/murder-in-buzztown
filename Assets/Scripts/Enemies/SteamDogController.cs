@@ -6,6 +6,7 @@ public class SteamDogController : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _stoppedTime;
+    private Animator _anim;
     private Rigidbody2D _rb;
     private bool _hasCrashed;
     private Vector2[] positions;
@@ -20,6 +21,7 @@ public class SteamDogController : MonoBehaviour
         positions[0] = transform.GetChild(0).position;
         positions[1] = transform.GetChild(1).position;
         _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
         _hasCrashed = false;
     }
 
@@ -35,6 +37,7 @@ public class SteamDogController : MonoBehaviour
         {
             _hasCrashed = false;
             isStopped = true;
+            _anim.CrossFade("SteamDog", 0, 0);
             posIndex = posIndex == 1 ? 0 : 1; // since there are only 2 posible positions
             Vector3 rot = new Vector3(transform.rotation.x, posIndex == 1 ? 180f : 0f, transform.rotation.z); // if going to posIndex 0 that means its going left
             transform.rotation = Quaternion.Euler(rot);
@@ -46,6 +49,7 @@ public class SteamDogController : MonoBehaviour
     void EnableMovement()
     {
         isStopped = false;
+        _anim.CrossFade("Walk", 0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -53,6 +57,7 @@ public class SteamDogController : MonoBehaviour
         if (other.CompareTag("Player") && !_isLeaping)
         {
             _isLeaping = true;
+            _anim.CrossFade("Leap", 0, 0);
             _rb.AddForce(new Vector2(10 * (posIndex == 0 ? -1 : 1), 0f), ForceMode2D.Impulse);
             Debug.Log("Leap");
         }
