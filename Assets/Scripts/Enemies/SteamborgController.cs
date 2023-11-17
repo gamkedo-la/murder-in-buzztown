@@ -4,91 +4,67 @@ using UnityEngine;
 
 public class SteamborgController : MonoBehaviour
 {
-    // private float _skin = 0.05f;
-    private float _skin = 5f;
-    private float _internalFaceDirection = 1;
-    private Vector2 _boundsBottomLeft;
-    private Vector2 _boundsBottomRight;
-    private Vector2 _boundsBottomMiddle;
-    private Vector2 _boundsTopLeft;
-    private Vector2 _boundsTopRight;
-    private Vector2 _boundsTopMiddle;
-    private Vector2 _force;
-    private Vector2 _movePosition;
-    private float _boundsHeight;
-    private float _boundsWidth;
-    private BoxCollider2D _boxCollider2D;
-    [SerializeField] private int horizontalRayAmount = 8;
-
-    [Header("Collisions")]
-    [SerializeField] private LayerMask collideWith;
-
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _stoppedTime;
+    private Animator _anim;
+    private Rigidbody2D _rb;
+    private bool _hasCrashed;
+    private Vector2[] positions;
+    bool isStopped;
+    bool _isLeaping;
+    int posIndex;
     // Start is called before the first frame update
     void Start() {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
+        // Set wander positions
+        positions = new Vector2[2];
+        positions[0] = transform.GetChild(0).position;
+        positions[1] = transform.GetChild(1).position;
+        _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+        _hasCrashed = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        Vector3 forward = transform.TransformDirection(Vector3.left) * 2;
-        Debug.DrawRay(transform.position, forward, Color.green);
-        RaycastCheckForCollisionHorizontally(0);
-    }
-
-    private void RaycastCheckForCollisionHorizontally(int direction) {
-        // Determine ray length based on movement in the horizontal + size of the object + skin
-        // float rayLength = Mathf.Abs(_force.x * Time.deltaTime) + _boundsWidth / 2f + _skin * 2f;
-        float rayLength = 5f;
-
-        Vector2 rayHorizontalBottom = (_boundsBottomLeft + _boundsBottomRight) / 2f;
-        Vector2 rayHorizontalTop = (_boundsTopLeft + _boundsTopRight) / 2f;
-        rayHorizontalBottom += (Vector2)transform.up * _skin; // Don't collide with above you
-        rayHorizontalTop -= (Vector2)transform.up * _skin; // Don't collide with below you
-
-
-        // For the number of horizontal rays, calculate the distance from the midpoint of the object to the horizontal edges
-        for (int i = 0; i < horizontalRayAmount; i++) {
-            Vector2 rayOrigin = Vector2.Lerp(rayHorizontalBottom, rayHorizontalTop, (float)i / (float)(horizontalRayAmount - 1));
-            // Direction will be 1 or -1, right or left, multiple by the transform.right to get full dist
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction * transform.right, rayLength, collideWith);
-            Debug.DrawRay(rayOrigin, transform.right * rayLength * 1, Color.cyan);
-
-            if (hit) {
-                if (direction >= 0) // If we collide on the right
-                {
-                    // Set the move position to be the distance to contact - everything we added to ray length. This makes you kiss the wall (at the hit.distance) and then takes in the extra fluff from ray.
-                    _movePosition.x = hit.distance - _boundsWidth / 2f - _skin * 2f;
-                } else // If we collide on the left
-                  {
-                    // Set the move position to be the negative distance (cuz left) to contact + everything we added to ray length. This makes you kiss the wall (at the hit.distance) and then takes in the extra fluff from ray.
-                    _movePosition.x = -hit.distance + _boundsWidth / 2f + _skin * 2f;
-                }
-
-                _force.x = 0; // security check
-            }
+    void Update() {
+        if (_isLeaping && _rb.velocity.x < 0.05f) {
+            _isLeaping = false;
         }
-        // Project the rays
-        // Check if the rays plus a skin register a hit
-        // if the rays hit, prevent the movement from proceeding
+        if (isStopped || _isLeaping) return;
+        if (Vector2.Distance(transform.position, positions[posIndex]) < 0.3f || _hasCrashed) {
+            _hasCrashed = false;
+            isStopped = true;
+            _anim.CrossFade("SteamDog", 0, 0);
+            posIndex = posIndex == 1 ? 0 : 1; // since there are only 2 posible positions
+            Vector3 rot = new Vector3(transform.rotation.x, posIndex == 1 ? 180f : 0f, transform.rotation.z); // if going to posIndex 0 that means its going left
+            transform.rotation = Quaternion.Euler(rot);
+            Invoke("EnableMovement", _stoppedTime);
+        }
+        transform.position = Vector2.MoveTowards(transform.position, positions[posIndex], _movementSpeed * Time.deltaTime);
     }
 
-    #region RayOrigins
-    private void SetRayOrigins() {
-        Bounds playerBounds = _boxCollider2D.bounds;
-
-        _boundsBottomLeft = new Vector2(playerBounds.min.x, playerBounds.min.y);
-        _boundsBottomRight = new Vector2(playerBounds.max.x, playerBounds.min.y);
-        _boundsBottomMiddle = new Vector2(playerBounds.center.x, playerBounds.min.y);
-
-        _boundsTopLeft = new Vector2(playerBounds.min.x, playerBounds.max.y);
-        _boundsTopRight = new Vector2(playerBounds.max.x, playerBounds.max.y);
-        _boundsTopMiddle = new Vector2(playerBounds.center.x, playerBounds.max.y);
-
-
-        _boundsHeight = Vector2.Distance(_boundsBottomLeft, _boundsTopLeft);
-        _boundsWidth = Vector2.Distance(_boundsBottomLeft, _boundsBottomRight);
+    void EnableMovement() {
+        isStopped = false;
+        _anim.CrossFade("Walk", 0, 0);
     }
-    #endregion
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Player") && !_isLeaping) {
+            _isLeaping = true;
+            _anim.CrossFade("Leap", 0, 0);
+            _rb.AddForce(new Vector2(10 * (posIndex == 0 ? -1 : 1), 0f), ForceMode2D.Impulse);
+            Debug.Log("Leap");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+
+        if (other.gameObject.CompareTag("Player")) {
+            _hasCrashed = true;
+            _rb.velocity = Vector2.zero;
+            Debug.Log("HurtPlayer");
+            // Hurt player
+        } else {
+            _hasCrashed = true;
+        }
+    }
 }
