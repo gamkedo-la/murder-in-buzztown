@@ -33,7 +33,7 @@ public class SteamborgController : MonoBehaviour
         if (Vector2.Distance(transform.position, positions[posIndex]) < 0.3f || _hasCrashed) {
             _hasCrashed = false;
             isStopped = true;
-            _anim.CrossFade("SteamDog", 0, 0);
+            _anim.CrossFade("Steamborg", 0, 0);
             posIndex = posIndex == 1 ? 0 : 1; // since there are only 2 posible positions
             Vector3 rot = new Vector3(transform.rotation.x, posIndex == 1 ? 180f : 0f, transform.rotation.z); // if going to posIndex 0 that means its going left
             transform.rotation = Quaternion.Euler(rot);
@@ -44,7 +44,7 @@ public class SteamborgController : MonoBehaviour
 
     void EnableMovement() {
         isStopped = false;
-        _anim.CrossFade("Walk", 0, 0);
+        _anim.CrossFade("Steamborg_Walk", 0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
