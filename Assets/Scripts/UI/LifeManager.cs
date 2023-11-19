@@ -4,7 +4,7 @@ using UnityEngine;
 public class LifeManager : MonoBehaviour
 {
     private int _currentLives = 3;
-    private int _maxLives = 3; 
+    private int _maxLives = 3;
 
     private GameObject player;
 
@@ -25,7 +25,7 @@ public class LifeManager : MonoBehaviour
 
     public void DecreaseLives()
     {
-        
+
         transform.GetChild(_currentLives - 1).GetChild(0).gameObject.SetActive(false);
         _currentLives--;
 
@@ -44,14 +44,14 @@ public class LifeManager : MonoBehaviour
         AudioManager.Instance.PlayEffect(AudioManager.Instance.deathAudioClip);
         StartCoroutine(HideAndSpawnPlayerAfterDelay());
     }
-    
+
     private IEnumerator HideAndSpawnPlayerAfterDelay()
     {
         SetPlayerVisibleStateTo(false);
 
         yield return new WaitForSeconds(timeToRespawn);
         checkpointManager.SpawnPlayerAtCurrentCheckpoint();
-        
+
         RefillAllLives();
         SetPlayerVisibleStateTo(true);
     }
@@ -59,7 +59,7 @@ public class LifeManager : MonoBehaviour
     private void SetPlayerVisibleStateTo(bool state)
     {
         player.GetComponent<SpriteRenderer>().enabled = state;
-        foreach(Collider2D collider2D in player.GetComponents<BoxCollider2D>())
+        foreach (Collider2D collider2D in player.GetComponents<BoxCollider2D>())
         {
             collider2D.enabled = state;
         }
@@ -76,13 +76,14 @@ public class LifeManager : MonoBehaviour
 
     public void HandleGinsengTeaPowerup()
     {
-        _maxLives = 4;
-        _currentLives = 4;
+        _maxLives = 5;
+        _currentLives = 5;
 
         transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
         transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(true);
         transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(4).gameObject.SetActive(true);
+        transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
     }
 }

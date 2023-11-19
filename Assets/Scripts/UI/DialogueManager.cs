@@ -72,9 +72,9 @@ public class DialogueManager : MonoBehaviour
         {
             tmproComponent.text += c;
 
-            characterCount++; 
+            characterCount++;
 
-            if (characterCount % 2 == 0) 
+            if (characterCount % 2 == 0)
             {
                 AudioManager.Instance.PlayEffect(AudioManager.Instance.dialogueBlipAudioClip);
             }
@@ -123,6 +123,6 @@ public class DialogueManager : MonoBehaviour
             }
             yield return null; // Wait until the next frame
         }
-        
+
     }
 }

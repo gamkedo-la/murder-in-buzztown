@@ -5,8 +5,7 @@ using UnityEngine;
 public class BuzztownPoliceScript : MonoBehaviour
 {
     private bool _hasSpoken;
-    public string myDialogue1 = "Que pedo detective? This one's fresh, so we don't know anything yet.";
-    public string myDialogue2 = "But there was some racket over there past the car and steam tower.";
+    public string[] dialogue;
 
     [SerializeField] GameObject dialogueManager;
     DialogueManager dialogueManagerScript;
@@ -39,8 +38,7 @@ public class BuzztownPoliceScript : MonoBehaviour
         {
             _hasSpoken = true;
             GameManager.Instance.gameState = "in dialogue";
-            dialogueManagerScript._dialogue[0] = myDialogue1;
-            dialogueManagerScript._dialogue[1] = myDialogue2;
+            dialogueManagerScript._dialogue = dialogue;
             dialogueManagerScript.StartDialogue();
         }
     }
