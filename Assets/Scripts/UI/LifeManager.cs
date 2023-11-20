@@ -16,11 +16,12 @@ public class LifeManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         checkpointManager = FindObjectOfType<CheckpointManager>();
     }
-    public void IncreaseLives()
+    public bool IncreaseLives()
     {
-        if (_currentLives == _maxLives) return;
+        if (_currentLives == _maxLives) return false;
         transform.GetChild(_currentLives).GetChild(0).gameObject.SetActive(true);
         _currentLives++;
+        return true;
     }
 
     public void DecreaseLives()

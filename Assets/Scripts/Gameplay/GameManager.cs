@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
         _lifeManager.DecreaseLives();
     }
 
-    public void IncreaseLives()
+    public bool IncreaseLives()
     {
-        _lifeManager.IncreaseLives();
+        return _lifeManager.IncreaseLives();
     }
 
     private void HandleWinGame()
