@@ -14,7 +14,8 @@ public class SteamborgController : MonoBehaviour
     bool _isLeaping;
     int posIndex;
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         // Set wander positions
         positions = new Vector2[2];
         positions[0] = transform.GetChild(0).position;
@@ -25,12 +26,15 @@ public class SteamborgController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
-        if (_isLeaping && _rb.velocity.x < 0.05f) {
+    void Update()
+    {
+        if (_isLeaping && _rb.velocity.x < 0.05f)
+        {
             _isLeaping = false;
         }
         if (isStopped || _isLeaping) return;
-        if (Vector2.Distance(transform.position, positions[posIndex]) < 0.3f || _hasCrashed) {
+        if (Vector2.Distance(transform.position, positions[posIndex]) < 0.3f || _hasCrashed)
+        {
             _hasCrashed = false;
             isStopped = true;
             _anim.CrossFade("Steamborg", 0, 0);
@@ -42,28 +46,35 @@ public class SteamborgController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, positions[posIndex], _movementSpeed * Time.deltaTime);
     }
 
-    void EnableMovement() {
+    void EnableMovement()
+    {
         isStopped = false;
         _anim.CrossFade("Steamborg_Walk", 0, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player") && !_isLeaping) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !_isLeaping)
+        {
             _isLeaping = true;
             _anim.CrossFade("Leap", 0, 0);
             _rb.AddForce(new Vector2(10 * (posIndex == 0 ? -1 : 1), 0f), ForceMode2D.Impulse);
-            Debug.Log("Leap");
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    private void OnCollisionEnter2D(Collision2D other)
+    {
 
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player"))
+        {
             _hasCrashed = true;
             _rb.velocity = Vector2.zero;
-            Debug.Log("HurtPlayer");
-            // Hurt player
-        } else {
+            GameManager.Instance.DecreaseLives();
+            Vector2 direction = new Vector2(transform.position.x < other.transform.position.x ? 1 : -1, 0);
+            other.transform.GetComponent<PlayerController>().ApplyPushBack(direction, true);
+        }
+        else
+        {
             _hasCrashed = true;
         }
     }

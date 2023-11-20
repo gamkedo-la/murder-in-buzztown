@@ -70,7 +70,9 @@ public class SteamDogController : MonoBehaviour
         {
             _hasCrashed = true;
             _rb.velocity = Vector2.zero;
-            Debug.Log("HurtPlayer");
+            GameManager.Instance.DecreaseLives();
+            Vector2 direction = new Vector2(transform.position.x < other.transform.position.x ? 1 : -1, 0);
+            other.transform.GetComponent<PlayerController>().ApplyPushBack(direction, true);
             // Hurt player
         }
         else

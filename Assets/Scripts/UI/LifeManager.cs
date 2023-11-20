@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-    private int _currentLives = 3;
-    private int _maxLives = 3;
+    private int _currentLives = 4;
+    private int _maxLives = 4;
 
     private GameObject player;
 
