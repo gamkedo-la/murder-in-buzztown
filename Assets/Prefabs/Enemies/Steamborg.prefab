@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7932467102613178061}
   - component: {fileID: 2708378317967606133}
   - component: {fileID: 1552752292848995525}
+  - component: {fileID: 23644210515969671}
   m_Layer: 0
   m_Name: Steamborg
   m_TagString: Untagged
@@ -264,6 +265,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.8766937, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &23644210515969671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820379385480077754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feeb16fba162376479180c166b7efc77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_health: 16
+  _health: 16
 --- !u!1 &6674690217283996055
 GameObject:
   m_ObjectHideFlags: 0
