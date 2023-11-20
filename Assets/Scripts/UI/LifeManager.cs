@@ -86,4 +86,9 @@ public class LifeManager : MonoBehaviour
         transform.GetChild(4).gameObject.SetActive(true);
         transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
     }
+
+    public bool IsLifeFull()
+    {
+        return _currentLives == _maxLives;
+    }
 }
