@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChangeCamera : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera targetCamera;
+    [SerializeField] bool willKeepOnExit;
     private CinemachineVirtualCamera originCamera;
     private bool isPlayerInZone = false;
     private bool isPlayerDying = false;
@@ -23,6 +24,8 @@ public class ChangeCamera : MonoBehaviour
     {
         if (!other.CompareTag("Player") || !isPlayerInZone || isPlayerDying) return;
         isPlayerInZone = false;
+
+        if (willKeepOnExit) return;
 
         ReactivateOriginCamera();
     }
@@ -48,7 +51,7 @@ public class ChangeCamera : MonoBehaviour
             );
             return;
         }
-        
+
         originCamera.gameObject.SetActive(true);
         targetCamera.gameObject.SetActive(false);
     }
