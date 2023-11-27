@@ -55,8 +55,8 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (!_player._hasControl) return;
         int state = GetState();
+        if (!_player._hasControl && state != Idle) return;
 
         _jumped = false;
         _landed = false;
