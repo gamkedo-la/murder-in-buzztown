@@ -11,7 +11,7 @@ public class BossDashing : BaseState
     const float GROUND_SPEED = 10f;
     const float AIR_SPEED = 7f;
     const int SLAG_COOLDOWN = 800;
-    const int ENDPOINT = 30;
+    const int ENDPOINT = 28;
     private Vector3 _targetPosition;
     private float _currentSpeed;
     private Stopwatch _sw;

@@ -17,6 +17,7 @@ public class BossSM : StateMachine
     public GameObject bulletPrefab;
     public GameObject slagPrefab;
     public BossLifeController lifeController;
+    public bool finishedTalking;
     // public Animator anim;
 
     private void Awake()
@@ -35,5 +36,7 @@ public class BossSM : StateMachine
     {
         return idleState;
     }
+
+
 }
 

@@ -21,6 +21,7 @@ public class BossIdle : BaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+        if (!_sm.finishedTalking) return;
         if (sw.ElapsedMilliseconds > 400)
         {
             // UnityEngine.Debug.Log("finishedIdle");

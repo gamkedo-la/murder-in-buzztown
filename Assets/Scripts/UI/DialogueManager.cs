@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] GameObject gameManager;
     [SerializeField] GameObject buzztownPoliceman;
+    private GameObject triggerObject;
     BuzztownPoliceScript buzztownPolicemanScript;
 
     private PlayerInputs _inputs;
@@ -56,9 +57,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue()
+    public void StartDialogue(GameObject obj = null)
     {
         gameObject.SetActive(true);
+        triggerObject = obj;
         currentIndex = 0;
         _player.TakeAwayControl();
         StartCoroutine(TypeLine());
@@ -97,6 +99,10 @@ public class DialogueManager : MonoBehaviour
             tmproComponent.text = string.Empty;
             gameObject.SetActive(false);
             gameManager.GetComponent<GameManager>().gameState = "gameplay";
+            if (triggerObject)
+            {
+                triggerObject.GetComponent<BossStartController>().StartBoss();
+            }
         }
     }
 
