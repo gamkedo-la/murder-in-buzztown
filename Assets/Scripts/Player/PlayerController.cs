@@ -7,15 +7,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject gameManager;
     GameManager gameManagerScript;
 
-    [HideInInspector] private Rigidbody2D _rb;
-    [SerializeField] private CapsuleCollider2D _coll;
-    [SerializeField] private SteamManager _sm;
-    private PlayerInput _input;
-    private InputStatus _inputStatus;
+    [HideInInspector] protected Rigidbody2D _rb;
+    [SerializeField] protected CapsuleCollider2D _coll;
+    [SerializeField] protected SteamManager _sm;
+    protected PlayerInput _input;
+    protected InputStatus _inputStatus;
 
-    private Vector2 _internalSpeed;
-    private Vector2 _externalSpeed;
-    private int _currentFrame;
+    protected Vector2 _internalSpeed;
+    protected Vector2 _externalSpeed;
+    protected int _currentFrame;
     public bool _hasControl = true;
     public float _pushBackTime; // Discuss these values with chris and turn them in constants.
     public float _pushBackForce;
@@ -32,80 +32,80 @@ public class PlayerController : MonoBehaviour
     public Vector2 velocity => _rb.velocity;
 
     // Collisions
-    private bool _applyFriction;
+    protected bool _applyFriction;
     [SerializeField] LayerMask _playerLayer;
     [SerializeField] LayerMask _wallLayer;
     [SerializeField] float _groundDistance;
     // [SerializeField] Vector2 _wallCheckSize;
-    private readonly RaycastHit2D[] _groundChecks = new RaycastHit2D[2];
-    private readonly RaycastHit2D[] _ceilChecks = new RaycastHit2D[2];
-    private int _frameLeftGround = int.MinValue;
-    private bool _grounded;
-    private Vector2 _skinWidth = new(0.02f, 0.02f);
+    protected readonly RaycastHit2D[] _groundChecks = new RaycastHit2D[2];
+    protected readonly RaycastHit2D[] _ceilChecks = new RaycastHit2D[2];
+    protected int _frameLeftGround = int.MinValue;
+    protected bool _grounded;
+    protected Vector2 _skinWidth = new(0.02f, 0.02f);
 
     // Jumps
 
-    private bool _hasJump;
-    private bool _canJump;
-    private bool _jumpInterrupted;
-    private bool _canCoyote;
-    private int _frameJump;
-    private int _airJumpsLeft;
+    protected bool _hasJump;
+    protected bool _canJump;
+    protected bool _jumpInterrupted;
+    protected bool _canCoyote;
+    protected int _frameJump;
+    protected int _airJumpsLeft;
 
     // Dash 
 
-    private bool _hasDash;
-    private bool _canDash;
-    private bool _isDashing;
-    private int _dashFrame;
-    private float _dashTimer;
-    private Vector2 _dashVelocity;
+    protected bool _hasDash;
+    protected bool _canDash;
+    protected bool _isDashing;
+    protected int _dashFrame;
+    protected float _dashTimer;
+    protected Vector2 _dashVelocity;
 
     // Melee
-    private bool _hasMelee;
-    private int _lastAttackFrame = int.MinValue;
+    protected bool _hasMelee;
+    protected int _lastAttackFrame = int.MinValue;
 
     // Shoot
-    private bool _hasShoot;
-    private int _lastShootFrame = int.MinValue;
-    [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private Transform _shootPoint;
+    protected bool _hasShoot;
+    protected int _lastShootFrame = int.MinValue;
+    [SerializeField] protected GameObject _bulletPrefab;
+    [SerializeField] protected Transform _shootPoint;
 
     //constants
-    private const int JUMP_POWER = 28;
+    protected const int JUMP_POWER = 28;
 
-    private const int JUMP_BUFFER = 5;
-    private const int COYOTE_BUFFER = 5;
-    private const int MAX_AIR_JUMPS = 0;
-    private const float DASH_COOLDOWN = 2f;
-    private const int DASH_VELOCITY = 40;
-    private const int DASH_DURATION = 6;
-    private const float DASH_HORIZONTAL_DECAY = .5f;
-    private const float X_AXIS_DEADZONE = .1f;
-    private const float Y_AXIS_DEADZONE = .1f;
-    private const int GROUND_SPEED_DECAY = 60;
-    private const int AIR_SPEED_DECAY = 30;
-    private const float FRICTION_MULTIPLIER = 1.5f;
-    private const int MAX_HORIZONTAL_SPEED = 8;
-    private const int HORIZONTAL_ACCELERATION = 100;
-    private const int MELEE_COOLDOWN_FRAMES = 15;
-    private const int SHOOT_COOLDOWN_FRAMES = 5;
-    private const float SHOOT_STEAM_PRICE = 0.3f;
+    protected const int JUMP_BUFFER = 5;
+    protected const int COYOTE_BUFFER = 5;
+    protected const int MAX_AIR_JUMPS = 0;
+    protected const float DASH_COOLDOWN = 2f;
+    protected const int DASH_VELOCITY = 40;
+    protected const int DASH_DURATION = 6;
+    protected const float DASH_HORIZONTAL_DECAY = .5f;
+    protected const float X_AXIS_DEADZONE = .1f;
+    protected const float Y_AXIS_DEADZONE = .1f;
+    protected const int GROUND_SPEED_DECAY = 60;
+    protected const int AIR_SPEED_DECAY = 30;
+    protected const float FRICTION_MULTIPLIER = 1.5f;
+    protected const int MAX_HORIZONTAL_SPEED = 8;
+    protected const int HORIZONTAL_ACCELERATION = 100;
+    protected const int MELEE_COOLDOWN_FRAMES = 15;
+    protected const int SHOOT_COOLDOWN_FRAMES = 5;
+    protected const float SHOOT_STEAM_PRICE = 0.3f;
 
-    private float _fallSpeedYDampingChangeThreshold;
-    private bool canAirJump => !_grounded && _airJumpsLeft > 0;
+    protected float _fallSpeedYDampingChangeThreshold;
+    protected bool canAirJump => !_grounded && _airJumpsLeft > 0;
 
     #region debug checkpoints
-    [SerializeField] Transform checkpoint1Transform;
-    [SerializeField] Transform checkpoint2Transform;
-    [SerializeField] Transform checkpoint3Transform;
-    [SerializeField] Transform checkpoint4Transform;
-    [SerializeField] Transform checkpoint5Transform;
+    [SerializeField] protected Transform checkpoint1Transform;
+    [SerializeField] protected Transform checkpoint2Transform;
+    [SerializeField] protected Transform checkpoint3Transform;
+    [SerializeField] protected Transform checkpoint4Transform;
+    [SerializeField] protected Transform checkpoint5Transform;
     #endregion
 
     #region dialogue interactions
     public GameObject anchoredDialogue;
-    private bool _hasInteracted;
+    protected bool _hasInteracted;
     #endregion
 
     public void ApplyVelocity(Vector2 vel, bool isDecay)
@@ -132,19 +132,19 @@ public class PlayerController : MonoBehaviour
         _hasControl = true;
     }
 
-    private void Awake()
+    protected void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
         Physics2D.queriesStartInColliders = false;
     }
 
-    private void Start()
+    protected void Start()
     {
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
-    private void Update()
+    protected void Update()
     {
         HandleDebugCheckpointInput();
         HandleInteraction();
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleDebugCheckpointInput()
+    protected void HandleDebugCheckpointInput()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         _currentFrame++;
         HandleCameraLerp();
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         ApplyMovement();
     }
 
-    private void HandleCollisions()
+    protected void HandleCollisions()
     {
         Physics2D.queriesHitTriggers = false;
 
@@ -272,7 +272,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleJump()
+    protected void HandleJump()
     {
         if (!_jumpInterrupted && !_grounded && !_inputStatus.JumpHeld && _rb.velocity.y > 0) _jumpInterrupted = true;
 
@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour
         _hasJump = false;
     }
 
-    private void Jump()
+    protected void Jump()
     {
         _jumpInterrupted = false;
         _frameJump = 0;
@@ -303,7 +303,7 @@ public class PlayerController : MonoBehaviour
         OnJump?.Invoke();
     }
 
-    private void AirJump()
+    protected void AirJump()
     {
         _jumpInterrupted = false;
         _airJumpsLeft--;
@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
         // OnAirJump.Invoke(); Enable When needed
     }
 
-    private void ResetJump()
+    protected void ResetJump()
     {
         _canCoyote = true;
         _canJump = true;
@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
         _airJumpsLeft = MAX_AIR_JUMPS;
     }
 
-    private void HandleDash()
+    protected void HandleDash()
     {
         if (_hasDash && _canDash && Time.time > _dashTimer)
         {
@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour
         _hasDash = false;
     }
 
-    private void ResetDash()
+    protected void ResetDash()
     {
         _canDash = true;
     }
@@ -369,7 +369,7 @@ public class PlayerController : MonoBehaviour
         return hit.collider;
     }
 
-    private void HandleMovement()
+    protected void HandleMovement()
     {
         if (_isDashing) return;
         if (!(Mathf.Abs(_inputStatus.Move.x) > X_AXIS_DEADZONE))
@@ -397,7 +397,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ApplyMovement()
+    protected void ApplyMovement()
     {
         if (!_hasControl) return;
 
@@ -405,7 +405,7 @@ public class PlayerController : MonoBehaviour
         _externalSpeed = Vector2.MoveTowards(_externalSpeed, Vector2.zero, .2f * Time.fixedDeltaTime); //TODO determine external speed decay    
     }
 
-    private void HandleCameraLerp()
+    protected void HandleCameraLerp()
     {
         if (_rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
         {
@@ -418,7 +418,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleMelee()
+    protected void HandleMelee()
     {
         if (!_hasMelee) return;
         if (_currentFrame > _lastAttackFrame + MELEE_COOLDOWN_FRAMES)
@@ -429,7 +429,7 @@ public class PlayerController : MonoBehaviour
         _hasMelee = false;
     }
 
-    private void HandleShoot()
+    protected void HandleShoot()
     {
         if (!_hasShoot) return;
         if (_currentFrame > _lastShootFrame + SHOOT_COOLDOWN_FRAMES)
@@ -453,13 +453,13 @@ public class PlayerController : MonoBehaviour
         Invoke("RemovePushBack", _pushBackTime);
     }
 
-    private void RemovePushBack()
+    protected void RemovePushBack()
     {
         _hasControl = true;
         _rb.velocity = Vector2.zero; // test
     }
 
-    private void HandleInteraction()
+    protected virtual void HandleInteraction()
     {
         if (anchoredDialogue && _hasInteracted)
         {
