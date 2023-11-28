@@ -9,6 +9,9 @@ public class BossStartController : MonoBehaviour
     [SerializeField] DialogueManager _dialogueManagerScript;
     [SerializeField] BossSM _boss;
     [SerializeField] GameObject _entranceWall;
+    [SerializeField] GameObject _StaticBox1;
+    [SerializeField] GameObject _StaticBox2;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !_hasTriggered)
@@ -19,6 +22,8 @@ public class BossStartController : MonoBehaviour
             _dialogueManagerScript.StartDialogue(gameObject);
             _boss.gameObject.SetActive(true);
             _entranceWall.SetActive(true);
+            _StaticBox1.SetActive(true);
+            _StaticBox2.SetActive(true);
         }
     }
 
