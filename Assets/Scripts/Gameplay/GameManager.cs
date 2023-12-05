@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             // TODO: disabled for testing purposes
-            // audioManagerScript.ChangeMusic(audioManagerScript.buzztownThemeAudioClip);
+            audioManagerScript.ChangeMusic(audioManagerScript.buzztownThemeAudioClip);
             // dialogueManager.SetActive(true);
             // StartCoroutine(dialogueManagerScript.WaitToFadeInOpeningDialogueBox());
         }
