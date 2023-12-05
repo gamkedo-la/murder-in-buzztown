@@ -10,22 +10,25 @@ public class Lever : MonoBehaviour
     [SerializeField] bool isVisible = false;
     private bool hasBeenActivated = false;
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log(other.name);
         if (hasBeenActivated) return;
         if (!isVisible) return;
-        if (!other.GetComponent<TurretBullet>()) return;
+        if (!other.CompareTag("PlayerBullet")) return;
 
         Destroy(other.gameObject);
         activateLever();
         hasBeenActivated = true;
     }
 
-    private void OnBecameVisible() {
+    private void OnBecameVisible()
+    {
         isVisible = true;
     }
 
-    private void OnBecameInvisible() {
+    private void OnBecameInvisible()
+    {
         isVisible = false;
     }
 }

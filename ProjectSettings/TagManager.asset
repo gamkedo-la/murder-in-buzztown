@@ -12,6 +12,7 @@ TagManager:
   - Boss
   - Police1
   - Police2
+  - NoBullet
   layers:
   - Default
   - TransparentFX

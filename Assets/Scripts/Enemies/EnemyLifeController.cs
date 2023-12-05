@@ -22,6 +22,7 @@ public class EnemyLifeController : MonoBehaviour
         }
         else if (other.CompareTag("PlayerBullet"))
         {
+            Debug.Log("hitByBullet");
             _health -= BULLET_DAMAGE;
         }
 

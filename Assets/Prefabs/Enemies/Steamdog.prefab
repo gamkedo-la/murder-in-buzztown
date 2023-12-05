@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: -8072293934388087907}
   m_Layer: 0
   m_Name: Steamdog
-  m_TagString: Untagged
+  m_TagString: Steamdog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

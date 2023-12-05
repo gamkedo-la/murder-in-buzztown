@@ -438,7 +438,7 @@ public class PlayerController : MonoBehaviour
             {
                 _lastShootFrame = _currentFrame;
                 GameObject temp = Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity);
-                temp.GetComponent<TurretBullet>().SetDirection(transform.rotation.y == 0);
+                temp.GetComponent<SteamBullet>().SetDirection(transform.rotation.y == 0);
                 OnShoot?.Invoke();
             }
         }

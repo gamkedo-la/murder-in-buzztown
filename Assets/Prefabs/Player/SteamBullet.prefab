@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8340009601510860229}
   - component: {fileID: 2980732552695117459}
   - component: {fileID: 3001385309263815931}
-  - component: {fileID: -2493253612711386634}
   - component: {fileID: 5081922889675344957}
+  - component: {fileID: 830361496412273964}
   m_Layer: 0
   m_Name: SteamBullet
   m_TagString: PlayerBullet
@@ -144,19 +144,6 @@ CircleCollider2D:
   m_Offset: {x: -0.09, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &-2493253612711386634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355676091672511104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd88cef2406928f4b8f44d4420d95364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletSpeed: 12
 --- !u!50 &5081922889675344957
 Rigidbody2D:
   serializedVersion: 4
@@ -184,3 +171,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &830361496412273964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355676091672511104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1c497072ca05549968602d3aedbd2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpeed: 12
