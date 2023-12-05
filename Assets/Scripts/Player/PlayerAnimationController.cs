@@ -6,6 +6,7 @@ using UnityEngine.Windows;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    [SerializeField] AudioClip _swordClip;
     private PlayerInput _input;
     private PlayerController _player;
     private SpriteRenderer _renderer;
@@ -45,6 +46,7 @@ public class PlayerAnimationController : MonoBehaviour
         _player.OnMelee += () =>
         {
             _melee = true;
+            AudioManager.Instance.PlayEffect(_swordClip);
         };
         _player.OnGroundedChange += (grounded, force) =>
         {
