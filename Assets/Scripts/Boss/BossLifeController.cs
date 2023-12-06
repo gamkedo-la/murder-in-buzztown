@@ -10,7 +10,10 @@ public class BossLifeController : MonoBehaviour
     const int SWORD_DAMAGE = 5;
     const int BULLET_DAMAGE = 2;
     public const int MAX_HEALTH = 30;
+    public const float CONTACT_DAMAGE_PLAYER_CD = 1.5f;
     public int _health;
+    private bool _hasDamagedPlayer = false;
+
 
     private void Start()
     {
@@ -34,6 +37,14 @@ public class BossLifeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Player") && !_hasDamagedPlayer)
+        {
+            _hasDamagedPlayer = true;
+            GameManager.Instance.DecreaseLives();
+            Vector2 direction = new Vector2(transform.position.x < other.transform.position.x ? 1 : -1, 0);
+            other.transform.GetComponent<PlayerController>().ApplyPushBack(direction, true);
+            Invoke("CanDamagePlayerAgain", CONTACT_DAMAGE_PLAYER_CD);
+        }
         if (other.CompareTag("PlayerSword"))
         {
             _health -= SWORD_DAMAGE;
@@ -47,5 +58,10 @@ public class BossLifeController : MonoBehaviour
     private void AlterColor()
     {
         _sr.color = _sr.color == Color.white ? Color.red : Color.white;
+    }
+
+    private void CanDamagePlayerAgain()
+    {
+        _hasDamagedPlayer = false;
     }
 }
