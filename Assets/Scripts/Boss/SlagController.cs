@@ -7,6 +7,8 @@ public class SlagController : MonoBehaviour
     private Animator _anim;
     private Rigidbody2D _rb;
     [SerializeField] AudioClip _slagClip;
+    [SerializeField] CircleCollider2D _radiationCollider;
+
 
 
     void Awake()
@@ -26,8 +28,19 @@ public class SlagController : MonoBehaviour
         {
             _rb.bodyType = RigidbodyType2D.Static;
             _anim.CrossFade("SlagGrounding", 0, 0);
+            _radiationCollider.enabled = true;
             AudioManager.Instance.PlayEffect(_slagClip);
-
+            Invoke("StopRadiating", 2f);
         }
+    }
+
+    private void StopRadiating()
+    {
+        _anim.CrossFade("SlagRadiateEnd", 0, 0);
+    }
+
+    public void DestroySlag()
+    {
+        Destroy(gameObject);
     }
 }
