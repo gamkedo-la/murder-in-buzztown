@@ -28,6 +28,8 @@ public class BossDashing : BaseState
         _targetPosition = _sm.transform.position + new Vector3(_sm.movedLeftLast ? ENDPOINT : -ENDPOINT, 0, 0);
         _sm.movedLeftLast = !_sm.movedLeftLast;
         _currentSpeed = _sm.movedUpLast ? AIR_SPEED : GROUND_SPEED;
+        AudioManager.Instance.PlayEffect(_sm.jetpackClip);
+
         if (_sm.movedUpLast)
         {
             _sw.Restart();

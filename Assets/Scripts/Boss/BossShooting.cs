@@ -33,6 +33,7 @@ public class BossShooting : BaseState
             // UnityEngine.Debug.Log("shooting");
             GameObject bullet = GameObject.Instantiate(_sm.bulletPrefab, _sm.transform.position, Quaternion.identity);
             bullet.GetComponent<StraightBullet>().SetTarget(_sm.playerTransform.position);
+            AudioManager.Instance.PlayEffect(_sm.bulletClip);
             _sw.Restart();
             _bulletCount++;
         }

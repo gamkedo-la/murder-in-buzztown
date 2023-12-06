@@ -6,6 +6,8 @@ public class SlagController : MonoBehaviour
 {
     private Animator _anim;
     private Rigidbody2D _rb;
+    [SerializeField] AudioClip _slagClip;
+
 
     void Awake()
     {
@@ -24,6 +26,8 @@ public class SlagController : MonoBehaviour
         {
             _rb.bodyType = RigidbodyType2D.Static;
             _anim.CrossFade("SlagGrounding", 0, 0);
+            AudioManager.Instance.PlayEffect(_slagClip);
+
         }
     }
 }

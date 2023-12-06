@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7941120405449129632}
   m_Layer: 0
   m_Name: steam_gear
-  m_TagString: Untagged
+  m_TagString: NoBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 590839994617602999}
   m_Layer: 0
   m_Name: steam_vent
-  m_TagString: Untagged
+  m_TagString: NoBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5403,7 +5403,7 @@ GameObject:
   - component: {fileID: 5347214182334886873}
   m_Layer: 0
   m_Name: steam_whistle
-  m_TagString: Untagged
+  m_TagString: NoBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5423,7 +5423,7 @@ Transform:
   - {fileID: 6585464158592360549}
   - {fileID: 6955971822700921067}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7992534463920427277
 SpriteRenderer:

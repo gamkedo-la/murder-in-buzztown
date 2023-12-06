@@ -9,7 +9,8 @@ public class BossSM : StateMachine
     [HideInInspector] public BossDashing dashingState;
     [HideInInspector] public BossVertical verticalState;
     [HideInInspector] public BossShooting shootingState;
-
+    public AudioClip bulletClip;
+    public AudioClip jetpackClip;
     BossSM _sm;
     public Transform playerTransform;
     public bool movedLeftLast;

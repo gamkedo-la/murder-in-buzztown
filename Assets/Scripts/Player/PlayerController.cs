@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] protected Rigidbody2D _rb;
     [SerializeField] protected CapsuleCollider2D _coll;
     [SerializeField] protected SteamManager _sm;
+    [SerializeField] AudioClip _bulletClip;
+
     protected PlayerInput _input;
     protected InputStatus _inputStatus;
 
@@ -439,6 +441,7 @@ public class PlayerController : MonoBehaviour
                 _lastShootFrame = _currentFrame;
                 GameObject temp = Instantiate(_bulletPrefab, _shootPoint.position, Quaternion.identity);
                 temp.GetComponent<SteamBullet>().SetDirection(transform.rotation.y == 0);
+                AudioManager.Instance.PlayEffect(_bulletClip);
                 OnShoot?.Invoke();
             }
         }
