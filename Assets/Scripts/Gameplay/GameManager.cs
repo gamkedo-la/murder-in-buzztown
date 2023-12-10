@@ -13,7 +13,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LifeManager _lifeManager;
     private AudioManager audioManagerScript;
     [SerializeField] GameObject dialogueManager;
+    [SerializeField] BossSM boss;
+    [SerializeField] GameObject bossEntranceWall;
+    [SerializeField] BossStartController bossStartScript;
     public DialogueManager dialogueManagerScript;
+    public bool isInBoss = false;
 
     public string gameState = "first dialogue";
 
@@ -64,6 +68,14 @@ public class GameManager : MonoBehaviour
     private void HandleWinGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("VictoryScreen");
+    }
+
+    public void RestartBoss()
+    {
+        boss.Restart();
+        boss.gameObject.SetActive(false);
+        bossEntranceWall.SetActive(false);
+        bossStartScript.hasTriggered = false;
     }
 
     private void HandleDeath()

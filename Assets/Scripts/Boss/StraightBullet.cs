@@ -17,7 +17,7 @@ public class StraightBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Boss")) return;
+        if (other.CompareTag("Boss") || other.CompareTag("NoBullet")) return;
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.DecreaseLives();

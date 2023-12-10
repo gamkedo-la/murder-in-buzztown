@@ -12,7 +12,6 @@ public class Lever : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
         if (hasBeenActivated) return;
         if (!isVisible) return;
         if (!other.CompareTag("PlayerBullet")) return;

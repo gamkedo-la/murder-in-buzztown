@@ -10,6 +10,8 @@ public class LifeManager : MonoBehaviour
 
     private CheckpointManager checkpointManager;
     [SerializeField] float timeToRespawn = 1f;
+    [SerializeField] GameObject _bossCam;
+    [SerializeField] GameObject _followCam;
 
     private void Start()
     {
@@ -26,7 +28,7 @@ public class LifeManager : MonoBehaviour
 
     public void DecreaseLives()
     {
-
+        if (_currentLives < 0) return;
         transform.GetChild(_currentLives - 1).GetChild(0).gameObject.SetActive(false);
         _currentLives--;
 
@@ -44,6 +46,12 @@ public class LifeManager : MonoBehaviour
     {
         AudioManager.Instance.PlayEffect(AudioManager.Instance.deathAudioClip);
         StartCoroutine(HideAndSpawnPlayerAfterDelay());
+        if (GameManager.Instance.isInBoss)
+        {
+            _followCam.SetActive(true);
+            _bossCam.SetActive(false);
+            GameManager.Instance.RestartBoss();
+        }
     }
 
     private IEnumerator HideAndSpawnPlayerAfterDelay()

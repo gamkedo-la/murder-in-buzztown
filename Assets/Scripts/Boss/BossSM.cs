@@ -38,6 +38,16 @@ public class BossSM : StateMachine
         return idleState;
     }
 
+    public void Restart()
+    {
+        transform.position = new Vector3(-320, 2, 0f);
+        lifeController.Restart();
+        movedLeftLast = false;
+        movedUpLast = false;
+        finishedTalking = false;
+        _sm.ChangeState(idleState);
+    }
+
 
 }
 

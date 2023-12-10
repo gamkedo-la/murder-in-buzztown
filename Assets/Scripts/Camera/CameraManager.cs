@@ -13,8 +13,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float _fallYlerpTime;
     public float _fallSpeedYDampingChangeThreshold;
 
-    public bool IsLerpingYDamping { get; private set;}
-    public bool LerpedFromPlayerFalling { get; set;}
+    public bool IsLerpingYDamping { get; private set; }
+    public bool LerpedFromPlayerFalling { get; set; }
 
     private Coroutine _lerpYCoroutine;
 
@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(instance == null) instance = this;
+        if (instance == null) instance = this;
 
         for (int i = 0; i < _allCams.Length; i++)
         {
@@ -51,7 +51,7 @@ public class CameraManager : MonoBehaviour
         float startDampAmount = _transposer.m_YDamping;
         float endDampAmount = 0f;
 
-        if(isPlayerFalling)
+        if (isPlayerFalling)
         {
             endDampAmount = _fallLerpAmount;
             LerpedFromPlayerFalling = true;
@@ -63,7 +63,7 @@ public class CameraManager : MonoBehaviour
         }
 
         float elapsedTime = 0f;
-        while(elapsedTime < _fallYlerpTime)
+        while (elapsedTime < _fallYlerpTime)
         {
             elapsedTime += Time.deltaTime;
             float lerpedAmount = Mathf.Lerp(startDampAmount, endDampAmount, (elapsedTime / _fallYlerpTime));

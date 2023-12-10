@@ -64,4 +64,8 @@ public class BossLifeController : MonoBehaviour
     {
         _hasDamagedPlayer = false;
     }
+    public void Restart()
+    {
+        _health = MAX_HEALTH;
+    }
 }
