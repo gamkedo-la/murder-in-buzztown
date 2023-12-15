@@ -49,6 +49,7 @@ public class DocksPolicemanScript : MonoBehaviour
             dialogueManagerScript._dialogue = dialogue;
             dialogueManagerScript.StartDialogue();
             lifeManagerScript.HandleGinsengTeaPowerup();
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }

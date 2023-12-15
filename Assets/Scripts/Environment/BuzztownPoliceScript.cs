@@ -40,6 +40,7 @@ public class BuzztownPoliceScript : MonoBehaviour
             GameManager.Instance.gameState = "in dialogue";
             dialogueManagerScript._dialogue = dialogue;
             dialogueManagerScript.StartDialogue();
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
